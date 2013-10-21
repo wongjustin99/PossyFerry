@@ -16,6 +16,7 @@
 # All Platforms
 FutileDemos
 Library
+Assets/Resources
 *.jpg
 *.png
 *.wav
