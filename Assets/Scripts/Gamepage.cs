@@ -45,6 +45,10 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 		EnableMultiTouch();
 		
 		Futile.stage.AddChild(_holder);
+
+        // music loop
+		FSoundManager.PlayMusic("loop1", 1.0f);
+
 	}
 
 	
@@ -59,7 +63,7 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 			_enemies.Add(_enemy);
 		}
 			
-			
+		// remove shots from edge of screen	
 		for(int b = _shots.Count - 1; b>=0; b--)
 		{
 			Shot shotted = _shots[b];
