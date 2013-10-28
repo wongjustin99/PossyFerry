@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Gamepage : FContainer, FMultiTouchableInterface
+public class Gamepage : PageContatiner, FMultiTouchableInterface
 {
 	private FSprite _background;
 	private Player	_player;
 	private FContainer _holder;
 	private FButton _shootbutton;
 	private FSprite _monkey;
+	private FButton _backButton;
 	
 	private Enemy _enemy;
 	private List<Enemy> _enemies = new List<Enemy>();
@@ -33,6 +34,10 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 		_player = new Player();
 		_shots = new List<Shot>();
 	
+		_backButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
+		_backButton.AddLabel("Franchise", "X", new Color(0.45f,0.25f,0.0f,1.0f));
+		_backButton.x = -Futile.screen.halfWidth + 100.0f;
+		_backButton.y = -Futile.screen.halfHeight + 30.0f;
 		// initialise BG
 		AddChild(_background);
 	
@@ -44,9 +49,15 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 		// enable MultiTouch
 		EnableMultiTouch();
 		
+		AddChild(_backButton);
 		Futile.stage.AddChild(_holder);
+		_backButton.SignalRelease += HandleBackButtonRelease;
 	}
 
+	private void HandleBackButtonRelease(FButton fbutton)
+	{
+		Main.instance.GoToPage(PageType.TitlePage);
+	}
 	
 	public void HandleUpdate()
 	{
