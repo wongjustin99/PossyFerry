@@ -5,6 +5,7 @@ using System;
 
 public class Gamepage : FContainer, FMultiTouchableInterface
 {
+	private ShotContainer _allShots;
 	private FSprite _background;
 	private Player	_player;
 	private FContainer _holder;
@@ -14,7 +15,11 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 	private Enemy _enemy;
 	private List<Enemy> _enemies = new List<Enemy>();
 	
+	private List<Shot> _playerShots;
+	private List<Shot> _enemyShots;
 	private List<Shot> _shots;
+	
+	private ControlScheme _control;
 	
 	private FButton _upbutton;
 	private FButton _downbutton;
@@ -25,14 +30,17 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 	
 	public Gamepage()
 	{
-		
+		_allShots = new ShotContainer();
 		ListenForUpdate (HandleUpdate);
 		
 		_holder = new FContainer();
 		_background = new FSprite("JungleClearBG");
 		_player = new Player();
 		_shots = new List<Shot>();
+		_playerShots = new List<Shot>();
+		_enemyShots = new List<Shot>();
 	
+		
 		// initialise BG
 		AddChild(_background);
 	
@@ -44,7 +52,11 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 		// enable MultiTouch
 		EnableMultiTouch();
 		
+		_control = new TouchControlScheme(_player);
+		
 		Futile.stage.AddChild(_holder);
+		
+		
 
         // music loop
 		FSoundManager.PlayMusic("loop1", 1.0f);
@@ -54,6 +66,9 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 	
 	public void HandleUpdate()
 	{
+		_playerShots = _allShots.requestPlayerShots();
+		_enemyShots = _allShots.requestEnemyShots();
+		_shots = _allShots.requestAllShots();
 		// generate enemies
 		frameCount += 1;
 		if(frameCount%60 == 0)
@@ -87,68 +102,65 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 		
 		
 		// Kevin's hit detection code - player's bullets on enemies
-		for(int b = _shots.Count - 1; b>=0; b--)
+		for(int b = _playerShots.Count - 1; b>=0; b--)
 		{
-			Shot shotted = _shots[b];
+			Shot shotted = _playerShots[b];
+			
+			// get position of the current shot  
+			Vector2 shotPos = shotted.GetPosition();
+			
 			// loop through each enemy
 			for(int c = _enemies.Count - 1; c>=0; c--)
 				{
 					// get the current enemy
 					Enemy enemy = _enemies[c];
 				
-					// get position of the current shot  
-					Vector2 shotPos = shotted.GetPosition();
+					
 					// draw a box around the enemy not the Monkey....
 					Rect enemyBounds = enemy.GetTextureRectRelativeToContainer();
 					
 					// check if the enemy contains the player shot's position	
 					if(enemyBounds.Contains(shotPos))
 					{
-						List<Shot> deadShots = enemy.getShots();
-						for(int j = deadShots.Count - 1; j>=0; j--)
-						{
-							_shots.Add(deadShots[j]);
-						}
-						
 						enemy.RemoveFromContainer();
 						_enemies.Remove(enemy);
 						// remove bullet from the list
-						shotted.RemoveFromContainer();
-						_shots.Remove(shotted);
+						ShotContainer.deletePlayerShotFromContainer(shotted);
 					}
 				}
 		}
 		
+		//loop through shots to check if player has been hit
+		for( int b = _enemyShots.Count - 1; b>=0; b--)
+		{
+			Shot shotted = _enemyShots[b];
+			
+			// get position of the current shot  
+			Vector2 shotPos = shotted.GetPosition();
+			
+			Rect playerBounds = _player.GetTextureRectRelativeToContainer();
+			
+			if(playerBounds.Contains(shotPos))
+			{	
+				_player.playerDeath ();
+				ShotContainer.deleteEnemyShotFromContainer(shotted);
+			}
+		}
+		
 		
 		
 	}
+	
 	// Player input 	
 	public void HandleMultiTouch(FTouch[] touches)
 	{
 		if (touches.Length > 0){
-			MoveCharacter(touches[0].position);
+			_control.MoveCharacter(touches[0].position);
 		}
 		if (touches.Length > 1){
-			HandleShoot();
+			_control.HandleShoot();
 		}
 	}
-	
-	// Handle player shooting	
-	public void HandleShoot()
-	{
-		Shot _shot = new Shot(-5.0f, 0.0f);
-		_shot.x = _player.x + 10;
-		_shot.y = _player.y;
-		AddChild(_shot);
-		_shots.Add(_shot);
-	}
-	
-	private void MoveCharacter(Vector2 position)
-	{
-		_player.x = position.x;
-		_player.y = position.y;
-	}
-	
 	
 	
 	
