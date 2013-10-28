@@ -5,12 +5,17 @@ using System;
 
 public abstract class ControlScheme : FContainer {
 	// target is what the ControlScheme will move
-	protected FSprite _target;
+	protected Player _target;
 	// list of shots
 	private List<Shot> _shots = new List<Shot>();
 	
-	public ControlScheme( FSprite target ){
+	public ControlScheme( Player target ){
 		this._target = target;
 	}
+	
+	public abstract void HandleShoot();
+	
+	public abstract void MoveCharacter(Vector2 position);
+	
 	
 }

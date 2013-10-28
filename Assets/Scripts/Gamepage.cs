@@ -19,6 +19,8 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 	private List<Shot> _enemyShots;
 	private List<Shot> _shots;
 	
+	private ControlScheme _control;
+	
 	private FButton _upbutton;
 	private FButton _downbutton;
 	private FButton _rightbutton;
@@ -49,6 +51,8 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 		
 		// enable MultiTouch
 		EnableMultiTouch();
+		
+		_control = new TouchControlScheme(_player);
 		
 		Futile.stage.AddChild(_holder);
 		
@@ -146,32 +150,17 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 		
 		
 	}
+	
 	// Player input 	
 	public void HandleMultiTouch(FTouch[] touches)
 	{
 		if (touches.Length > 0){
-			MoveCharacter(touches[0].position);
+			_control.MoveCharacter(touches[0].position);
 		}
 		if (touches.Length > 1){
-			HandleShoot();
+			_control.HandleShoot();
 		}
 	}
-	
-	// Handle player shooting	
-	public void HandleShoot()
-	{
-		Shot _shot = new Shot(-5.0f, 0.0f);
-		_shot.x = _player.x + 10;
-		_shot.y = _player.y;
-		ShotContainer.addPlayerShotToContainer(_shot);
-	}
-	
-	private void MoveCharacter(Vector2 position)
-	{
-		_player.x = position.x;
-		_player.y = position.y;
-	}
-	
 	
 	
 	

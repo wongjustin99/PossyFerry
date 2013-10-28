@@ -10,8 +10,8 @@ public class Player : FSprite {
 	public void playerDeath()
 	{
 		//return player to the middle of the screen
-		this.x = Futile.screen.halfWidth;
-		this.y = Futile.screen.halfHeight;
+		this.x = 0;
+		this.y = 0;
 		
 		Debug.Log (" you died");
 		
