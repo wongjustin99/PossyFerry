@@ -35,21 +35,17 @@ public class Enemy :  FSprite
 		
 		if(frameCount%shotrate == 0)
 		{
-			_shot = new Shot(-10.0f, 0.0f);
+			_shot = new Shot(-5.0f, 0.0f);
 			_shot.x = this.x;
 			_shot.y = this.y;
-			_shots.Add(_shot);
-			Futile.stage.AddChild(_shot);
+			ShotContainer.addEnemyShotToContainer(_shot);
 		}
 		
 		for(int b = _shots.Count - 1; b>=0; b--)
 		{
 			Shot shotted = _shots[b];
 			if(shotted.x < -Futile.screen.halfWidth)
-			{
-				shotted.RemoveFromContainer();
-				_shots.Remove(shotted);
-			}
+				ShotContainer.deleteEnemyShotFromContainer(shotted);
 		}
 		
 		frameCount += 1;
