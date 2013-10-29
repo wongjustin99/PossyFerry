@@ -13,8 +13,7 @@ public class Enemy :  FSprite
 	
 	private float frameCount = 0;
 	
-	private Shot _shot;
-	private List<Shot> _shots = new List<Shot>();
+
 	
 	
 	public Enemy() : base("Monkey_0")
@@ -35,24 +34,14 @@ public class Enemy :  FSprite
 		
 		if(frameCount%shotrate == 0)
 		{
-			_shot = new Shot(-5.0f, 0.0f);
-			_shot.x = this.x;
-			_shot.y = this.y;
-			ShotContainer.addEnemyShotToContainer(_shot);
-		}
-		
-		for(int b = _shots.Count - 1; b>=0; b--)
-		{
-			Shot shotted = _shots[b];
-			if(shotted.x < -Futile.screen.halfWidth)
-				ShotContainer.deleteEnemyShotFromContainer(shotted);
+			Shot _shot = new basicShot(true, this.GetPosition());
+			//_shot.x = this.x;
+			//_shot.y = this.y;
+			//ShotContainer.addEnemyShotToContainer(_shot);
 		}
 		
 		frameCount += 1;
 	}
 	
-	public List<Shot> getShots()
-	{
-		return _shots;
-	}
+
 }

@@ -16,10 +16,10 @@ public abstract class ControlScheme : FContainer {
 	//default shooting behavior
 	public void HandleShoot()
 	{
-		Shot _shot = new Shot(5.0f, 0.0f);
-		_shot.x = _target.x + 10;
-		_shot.y = _target.y;
-		ShotContainer.addPlayerShotToContainer(_shot);
+		Shot _shot = new fanShot(false, _target.GetPosition());
+		//_shot.x = _target.x + 10;
+		//_shot.y = _target.y;
+		//ShotContainer.addPlayerShotToContainer(_shot);
 	}
 	
 	

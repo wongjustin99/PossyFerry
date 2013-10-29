@@ -22,20 +22,24 @@ public class ShotContainer :  FContainer
 		
 	}
 	
-	public static void addPlayerShotToContainer(Shot shot)
-	{
-		_playerShots.Add(shot);
-		_allShots.Add (shot);
-		Futile.stage.AddChild(shot);
-	}
-	
-	public static void addEnemyShotToContainer(Shot shot)
-	{
-		_enemyShots.Add(shot);
-		_allShots.Add (shot);
-		Futile.stage.AddChild(shot);
-	}
-	
+
+    public static void addPlayerShotToContainer(Shot shot)
+    {
+        
+        _playerShots.Add(shot);
+        _allShots.Add(shot);
+        Futile.stage.AddChild(shot);
+        
+    }
+
+    public static void addEnemyShotToContainer(Shot shot)
+    {
+        
+        _enemyShots.Add(shot);
+        _allShots.Add(shot);
+        Futile.stage.AddChild(shot);
+    
+    }
 	
 	public static void deletePlayerShotFromContainer(Shot shot)
 	{
