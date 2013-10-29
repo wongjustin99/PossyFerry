@@ -17,6 +17,7 @@
 FutileDemos
 Library
 Assets/Resources
+obj
 *.jpg
 *.png
 *.wav
@@ -25,6 +26,11 @@ Temp
 *.pidb
 *.unityproj
 *.sln
+*.userprefs
+
+*.suo
+*.user
+*.pidb
 *.userprefs
 
 *.apk
