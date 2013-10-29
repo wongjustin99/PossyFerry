@@ -8,7 +8,6 @@ public class TouchControlScheme : ControlScheme
 	
 	public TouchControlScheme( Player target ) : base( target ){
 		_target = target;
-	
 	}
 	
 	override public void MoveCharacter(FTouch touch)

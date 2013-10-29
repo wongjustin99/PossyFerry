@@ -10,7 +10,7 @@ public class PadControlScheme : ControlScheme {
 	
 	public PadControlScheme( Player target ) : base( target ){
 		_target = target;
-		pad = new GamePad( target );
+		pad = new GamePad();
 		AddChild (pad);
 		ListenForUpdate(HandleUpdate);
 	}

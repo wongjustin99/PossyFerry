@@ -14,13 +14,9 @@ public class GamePad :  FContainer
 	private FContainer _movepad;
 	
 	private Shot _shot;
-	private Player _player;
 	
-	public GamePad(Player player)
+	public GamePad()
 	{	
-		
-		
-		_player = player;
 		
 		_shootbutton = new FSprite("CloseButton_normal");
 		_shootbutton.y =  -Futile.screen.halfHeight + 40;
@@ -29,8 +25,6 @@ public class GamePad :  FContainer
 		_shootbutton.scale = 0.4f;
 		
 		AddChild(_shootbutton);
-		Debug.Log ("Making button pad");
-		
 		
 		_upbutton = new FSprite("CloseButton_normal");
 		_downbutton = new FSprite("CloseButton_normal");
@@ -98,15 +92,4 @@ public class GamePad :  FContainer
 	{	
 		return _shootbutton.GetTextureRectRelativeToContainer();
 	}
-	
-	public void deletePlayer()
-	{
-		_player = null;
-	}
-	
-	public void addPlayer(Player player)
-	{
-		_player = player;
-	}
-
 }
