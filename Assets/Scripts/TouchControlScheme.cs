@@ -11,19 +11,19 @@ public class TouchControlScheme : ControlScheme
 	
 	}
 	
-	
-	// Handle player shooting	
-	override public void HandleShoot()
+	override public void MoveCharacter(FTouch touch)
 	{
-		Shot _shot = new Shot(-5.0f, 0.0f);
-		_shot.x = _target.x + 10;
-		_shot.y = _target.y;
-		ShotContainer.addPlayerShotToContainer(_shot);
+		_target.x = touch.position.x;
+		_target.y = touch.position.y;
 	}
 	
-	override public void MoveCharacter(Vector2 position)
+	override public void acceptTouchOne(FTouch touch)
 	{
-		_target.x = position.x;
-		_target.y = position.y;
+		MoveCharacter (touch);
+	}
+		
+	override public void acceptTouchTwo(FTouch touch)
+	{
+		HandleShoot ();
 	}
 }

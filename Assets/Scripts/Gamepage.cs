@@ -33,7 +33,7 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 		_allShots = new ShotContainer();
 		ListenForUpdate (HandleUpdate);
 		
-		_holder = new FContainer();
+		//_holder = new FContainer();
 		_background = new FSprite("JungleClearBG");
 		_player = new Player();
 		_shots = new List<Shot>();
@@ -52,14 +52,18 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 		// enable MultiTouch
 		EnableMultiTouch();
 		
-		_control = new TouchControlScheme(_player);
+		//_control = new TouchControlScheme(_player);
+		_control = new PadControlScheme(_player);
 		
-		Futile.stage.AddChild(_holder);
+		AddChild (_control);
+		
+		
+		//Futile.stage.AddChild(_holder);
 		
 		
 
         // music loop
-		FSoundManager.PlayMusic("loop1", 1.0f);
+		//FSoundManager.PlayMusic("loop1", 1.0f);
 
 	}
 
@@ -155,10 +159,10 @@ public class Gamepage : FContainer, FMultiTouchableInterface
 	public void HandleMultiTouch(FTouch[] touches)
 	{
 		if (touches.Length > 0){
-			_control.MoveCharacter(touches[0].position);
+			_control.acceptTouchOne(touches[0]);
 		}
 		if (touches.Length > 1){
-			_control.HandleShoot();
+			_control.acceptTouchTwo(touches[1]);
 		}
 	}
 	

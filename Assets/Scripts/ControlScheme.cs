@@ -13,9 +13,20 @@ public abstract class ControlScheme : FContainer {
 		this._target = target;
 	}
 	
-	public abstract void HandleShoot();
+	//default shooting behavior
+	public void HandleShoot()
+	{
+		Shot _shot = new Shot(5.0f, 0.0f);
+		_shot.x = _target.x + 10;
+		_shot.y = _target.y;
+		ShotContainer.addPlayerShotToContainer(_shot);
+	}
 	
-	public abstract void MoveCharacter(Vector2 position);
+	
+	public abstract void MoveCharacter(FTouch touch);
+	
+	public abstract void acceptTouchOne(FTouch touch);
+	public abstract void acceptTouchTwo(FTouch touch);
 	
 	
 }
