@@ -31,6 +31,8 @@ public class GamePad :  FContainer
 		_leftbutton = new FSprite("CloseButton_normal");
 		_rightbutton = new FSprite("CloseButton_normal");
 		
+        // position sprites for d-pad
+        // note: these should probably all be one sprite later? 
 		_upbutton.x = 0.0f;
 		_upbutton.y = 50.0f;
 		_upbutton.x = _upbutton.x + -Futile.screen.halfWidth + 37;
@@ -55,35 +57,30 @@ public class GamePad :  FContainer
 		_leftbutton.y = _leftbutton.y + -Futile.screen.halfHeight + 52;
 		_leftbutton.scale = 0.4f;
 		
-		
-		
-		
 		AddChild(_upbutton);
 		AddChild(_downbutton);
 		AddChild(_rightbutton);
 		AddChild(_leftbutton);
-			
-		
-		
 		
 	}
-	
-	public Rect upPress()
+
+    // `Rect`s -- bounding boxes for where the d-pad buttons are
+	public Rect up_rect()
 	{	
 		return _upbutton.GetTextureRectRelativeToContainer();
 	}
 	
-	public Rect downPress()
+	public Rect down_rect()
 	{	
 		return _downbutton.GetTextureRectRelativeToContainer();
 	}
 	
-	public Rect rightPress()
+	public Rect right_rect()
 	{	
 		return _rightbutton.GetTextureRectRelativeToContainer();
 	}
 	
-	public Rect leftPress()
+	public Rect left_rect()
 	{	
 		return _leftbutton.GetTextureRectRelativeToContainer();
 	}

@@ -21,14 +21,6 @@ public class PadControlScheme : ControlScheme {
 		_target.y += speedY;
 	}
 	
-
-	
-	override public void MoveCharacter(FTouch touch)
-	{
-//		_target.x = position.x;
-//		_target.y = position.y;
-	}
-	
 	override public void acceptTouchOne(FTouch touch)
 	{
 		decodeTouch(touch);
@@ -42,39 +34,43 @@ public class PadControlScheme : ControlScheme {
 	
 	private void decodeTouch(FTouch touch)
 	{
-		Rect _up = pad.upPress();
-		Rect _down = pad.downPress();
-		Rect _right = pad.rightPress();
-		Rect _left = pad.leftPress();
-		Rect _shoot = pad.shootPress();
+        // creates rectnagles to later compare touch collisions
+		Rect _up_rect = pad.up_rect();
+		Rect _down_rect = pad.down_rect();
+		Rect _right_rect = pad.right_rect();
+		Rect _left_rect = pad.left_rect();
+		Rect _shoot_rect = pad.shootPress();
 		
 		TouchPhase phase = touch.phase;
 		Vector2 position = touch.position;
 		
+        // Check d-pad for touches inside
 		if(phase == TouchPhase.Stationary || phase == TouchPhase.Moved)
 		{
-			if(_up.Contains(position))
+			if(_up_rect.Contains(position))
 				speedY = 3;
-			else if(_down.Contains(position))
+			else if(_down_rect.Contains(position))
 				speedY = -3;
-			else if(_right.Contains(position))
+			else if(_right_rect.Contains(position))
 				speedX = 3;
-			else if(_left.Contains (position))
+			else if(_left_rect.Contains (position))
 				speedX = -3;
 			
 		}
-		
+
+		// check for touch inside shoot_rect
 		if(phase == TouchPhase.Began)
 		{
-			if(_shoot.Contains (position))
+			if(_shoot_rect.Contains (position))
 				HandleShoot ();
 		}
 		
+        // stop movement after touches are gone
 		if(phase == TouchPhase.Ended)
 		{
-			if(_up.Contains(position) || _down.Contains (position))
+			if(_up_rect.Contains(position) || _down_rect.Contains (position))
 				speedY = 0;
-			else if(_right.Contains(position) || _left.Contains(position))
+			else if(_right_rect.Contains(position) || _left_rect.Contains(position))
 				speedX = 0;
 		}
 		
