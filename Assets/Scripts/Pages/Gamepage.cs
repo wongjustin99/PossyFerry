@@ -62,6 +62,7 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 
 		//_control = new TouchControlScheme(_player);
 		_control = new PadControlScheme(_player);
+		_control = new XboxControlScheme(_player);
 		
 		AddChild (_control);
 
