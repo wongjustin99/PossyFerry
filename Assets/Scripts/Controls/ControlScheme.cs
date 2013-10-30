@@ -22,9 +22,6 @@ public abstract class ControlScheme : FContainer {
 		ShotContainer.addPlayerShotToContainer(_shot);
 	}
 	
-	
-	public abstract void MoveCharacter(FTouch touch);
-	
 	public abstract void acceptTouchOne(FTouch touch);
 	public abstract void acceptTouchTwo(FTouch touch);
 	

@@ -10,7 +10,7 @@ public class TouchControlScheme : ControlScheme
 		_target = target;
 	}
 	
-	override public void MoveCharacter(FTouch touch)
+	public void MoveCharacter(FTouch touch)
 	{
 		_target.x = touch.position.x;
 		_target.y = touch.position.y;
