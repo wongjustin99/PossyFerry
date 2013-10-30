@@ -53,9 +53,13 @@ public class PadControlScheme : ControlScheme {
 				speedY = -3;
 			else if(_right_rect.Contains(position))
 				speedX = 3;
-			else if(_left_rect.Contains (position))
-				speedX = -3;
-			
+            else if (_left_rect.Contains(position))
+                speedX = -3;
+            else
+            {
+                speedX = 0;
+                speedY = 0;
+            }
 		}
 
 		// check for touch inside shoot_rect
@@ -68,10 +72,8 @@ public class PadControlScheme : ControlScheme {
         // stop movement after touches are gone
 		if(phase == TouchPhase.Ended)
 		{
-			if(_up_rect.Contains(position) || _down_rect.Contains (position))
-				speedY = 0;
-			else if(_right_rect.Contains(position) || _left_rect.Contains(position))
-				speedX = 0;
+            speedY = 0;
+            speedX = 0;
 		}
 		
 	}
