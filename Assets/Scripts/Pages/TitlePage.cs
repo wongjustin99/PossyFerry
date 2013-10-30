@@ -24,10 +24,10 @@ public class TitlePage : PageContatiner
 		_optionButton.x = -Futile.screen.halfWidth + 120.0f;
 		_creditButton.x = Futile.screen.halfWidth - 120.0f;
 		_startButton.y = -Futile.screen.halfHeight + 30.0f;
-		Futile.stage.AddChild(_background);
-		Futile.stage.AddChild(_optionButton);
-		Futile.stage.AddChild(_creditButton);
-		Futile.stage.AddChild(_startButton);
+		AddChild(_background);
+		AddChild(_optionButton);
+		AddChild(_creditButton);
+		AddChild(_startButton);
 		_optionButton.SignalRelease += HandleOptionButtonRelease;
 		_creditButton.SignalRelease += HandleCreditButtonRelease;
 		_startButton.SignalRelease += HandleStartButtonRelease;

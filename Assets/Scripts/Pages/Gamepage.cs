@@ -42,10 +42,9 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 		_playerShots = new List<Shot>();
 		_enemyShots = new List<Shot>();
 	
-		_backButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
-		_backButton.AddLabel("Franchise", "X", new Color(0.45f,0.25f,0.0f,1.0f));
-		_backButton.x = -Futile.screen.halfWidth + 100.0f;
-		_backButton.y = -Futile.screen.halfHeight + 30.0f;
+		_backButton = new FButton("CloseButton_normal", "CloseButton_down", "CloseButton_over", "ClickSound");
+		_backButton.x = Futile.screen.halfWidth - 30.0f;
+		_backButton.y = Futile.screen.halfHeight - 30.0f;
 
 		// initialise BG
 		AddChild(_background);
