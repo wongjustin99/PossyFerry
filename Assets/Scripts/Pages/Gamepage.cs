@@ -21,6 +21,7 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 	private List<Shot> _shots;
 	
 	private ControlScheme _control;
+	private ControlScheme _debug_control;
 	
 	private FButton _upbutton;
 	private FButton _downbutton;
@@ -62,9 +63,10 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 
 		//_control = new TouchControlScheme(_player);
 		_control = new PadControlScheme(_player);
-		_control = new XboxControlScheme(_player);
+		_debug_control = new XboxControlScheme(_player);
 		
 		AddChild (_control);
+		AddChild (_debug_control);
 
         // music loop
 		//FSoundManager.PlayMusic("loop1", 1.0f);
