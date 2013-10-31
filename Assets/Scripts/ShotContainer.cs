@@ -23,7 +23,7 @@ public class ShotContainer :  FContainer
 	}
 	
 
-    public static void addPlayerShotToContainer(Shot shot)
+    public static void addPlayerShot(Shot shot)
     {
         
         _playerShots.Add(shot);
@@ -32,7 +32,7 @@ public class ShotContainer :  FContainer
         
     }
 
-    public static void addEnemyShotToContainer(Shot shot)
+    public static void addEnemyShot(Shot shot)
     {
         
         _enemyShots.Add(shot);
@@ -41,14 +41,14 @@ public class ShotContainer :  FContainer
     
     }
 	
-	public static void deletePlayerShotFromContainer(Shot shot)
+	public static void deletePlayerShot(Shot shot)
 	{
 		_playerShots.Remove (shot);
 		_allShots.Remove(shot);
 		shot.RemoveFromContainer();
 	}
 	
-	public static void deleteEnemyShotFromContainer(Shot shot)
+	public static void deleteEnemyShot(Shot shot)
 	{
 		_enemyShots.Remove(shot);
 		_allShots.Remove(shot);

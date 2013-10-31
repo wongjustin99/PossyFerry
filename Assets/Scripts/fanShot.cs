@@ -14,10 +14,11 @@ public class fanShot : Shot
             this.speedX = 5.0f;
         this.speedY = 0f;
 
-
-        placeShot(new shotComponent(this.speedX, this.speedX, pos), isEnemy);
+        placeShot(new shotComponent(this.speedX, this.speedX / 2, pos), isEnemy);
+        placeShot(new shotComponent(this.speedX, this.speedX / 4, pos), isEnemy);
         placeShot(new shotComponent(this.speedX, this.speedY, pos), isEnemy);
-        placeShot(new shotComponent(this.speedX, -this.speedX, pos), isEnemy);
+        placeShot(new shotComponent(this.speedX, -this.speedX / 4, pos), isEnemy);
+        placeShot(new shotComponent(this.speedX, -this.speedX / 2, pos), isEnemy);
         ListenForUpdate(HandleUpdate);
     }
 

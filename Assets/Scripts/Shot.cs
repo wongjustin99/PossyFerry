@@ -18,8 +18,8 @@ public abstract class Shot : FSprite
     protected void placeShot(Shot s, bool isEnemy)
     {
         if (isEnemy)
-            ShotContainer.addEnemyShotToContainer(s);
+            ShotContainer.addEnemyShot(s);
         else
-            ShotContainer.addPlayerShotToContainer(s);
+            ShotContainer.addPlayerShot(s);
     }
 }
