@@ -8,6 +8,8 @@ public abstract class ControlScheme : FContainer {
 	protected Player _target;
 	// list of shots
 	private List<Shot> _shots = new List<Shot>();
+    // last shot time
+    private float last_shot_time;
 	
 	public ControlScheme( Player target ){
 		this._target = target;
@@ -16,10 +18,14 @@ public abstract class ControlScheme : FContainer {
 	//default shooting behavior
 	public void HandleShoot()
 	{
-		Shot _shot = new Shot(5.0f, 0.0f);
-		_shot.x = _target.x + 10;
-		_shot.y = _target.y;
-		ShotContainer.addPlayerShotToContainer(_shot);
+        if( Time.time-last_shot_time > 0.15 ){
+            Shot _shot = new Shot(5.0f, 0.0f);
+            _shot.x = _target.x + 10;
+            _shot.y = _target.y;
+            ShotContainer.addPlayerShotToContainer(_shot);
+
+            last_shot_time = Time.time;
+        }
 	}
 	
 	public abstract void acceptTouchOne(FTouch touch);
