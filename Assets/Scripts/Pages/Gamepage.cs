@@ -88,7 +88,7 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 		if(frameCount%60 == 0)
 		{
 			_enemy = new Enemy();
-			Futile.stage.AddChild(_enemy);
+			AddChild(_enemy);
 			_enemies.Add(_enemy);
 		}
 			
@@ -98,9 +98,6 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 			Shot shotted = _shots[b];
 			if(shotted.x > Futile.screen.halfWidth || shotted.x < -Futile.screen.halfWidth)
 			{
-				shotted.RemoveFromContainer();
-                _playerShots.Remove(shotted);
-                _enemyShots.Remove(shotted);
 				_shots.Remove(shotted);
 			}
 		}
@@ -141,7 +138,9 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 						enemy.RemoveFromContainer();
 						_enemies.Remove(enemy);
 						// remove bullet from the list
-						ShotContainer.deletePlayerShotFromContainer(shotted);
+						ShotContainer.deletePlayerShotFromContainer(shotted);                        _playerShots.Remove(shotted);
+                        _enemyShots.Remove(shotted);
+                        _shots.Remove(shotted);
 					}
 				}
 		}
@@ -160,6 +159,9 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 			{	
 				_player.playerDeath ();
 				ShotContainer.deleteEnemyShotFromContainer(shotted);
+                _playerShots.Remove(shotted);
+                _enemyShots.Remove(shotted);
+                _shots.Remove(shotted);
 			}
 		}
 		
