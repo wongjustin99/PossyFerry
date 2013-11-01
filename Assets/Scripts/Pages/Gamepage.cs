@@ -99,6 +99,8 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 			if(shotted.x > Futile.screen.halfWidth || shotted.x < -Futile.screen.halfWidth)
 			{
 				shotted.RemoveFromContainer();
+                _playerShots.Remove(shotted);
+                _enemyShots.Remove(shotted);
 				_shots.Remove(shotted);
 			}
 		}
