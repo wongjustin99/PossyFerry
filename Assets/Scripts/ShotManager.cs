@@ -3,15 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class ShotManager : FContainer
+public static class ShotManager 
 {
+    private static FContainer _container;
+
 	private static List<Shot> _allShots = new List<Shot>();
 	private static List<Shot> _enemyShots = new List<Shot>();
 	private static List<Shot> _playerShots = new List<Shot>();
-
-    public ShotManager(Gamepage gamepage)
-    {
-    }
 
     public static void checkBoundaries()
     {
@@ -25,33 +23,39 @@ public class ShotManager : FContainer
             }
 		}
     }
+
+    public static void setContainer(FContainer fc)
+    {
+        reset();
+        _container = fc;
+    }
 	
 	public static void addPlayerShot(Shot shot)
 	{
 		_playerShots.Add(shot);
 		_allShots.Add(shot);
-		Futile.stage.AddChild(shot);
+		_container.AddChild(shot);
 	}
 	
 	public static void addEnemyShot(Shot shot)
 	{
 		_enemyShots.Add(shot);
 		_allShots.Add(shot);
-		Futile.stage.AddChild(shot);
+		_container.AddChild(shot);
 	}
 	
 	public static void removePlayerShot(Shot shot)
 	{
 		_playerShots.Remove(shot);
 		_allShots.Remove(shot);
-        Futile.stage.RemoveChild(shot);
+        _container.RemoveChild(shot);
 	}
 	
 	public static void removeEnemyShot(Shot shot)
 	{
 		_enemyShots.Remove(shot);
 		_allShots.Remove(shot);
-        Futile.stage.RemoveChild(shot);
+        _container.RemoveChild(shot);
 	}
 
     public static void removeShot(Shot shot)
@@ -59,7 +63,7 @@ public class ShotManager : FContainer
 		_playerShots.Remove(shot);
         _enemyShots.Remove(shot);
 		_allShots.Remove(shot);
-        Futile.stage.RemoveChild(shot);
+        _container.RemoveChild(shot);
     }
 
     public static void reset()
@@ -68,6 +72,7 @@ public class ShotManager : FContainer
 		{
             ShotManager.removeShot( _allShots[i] );
 		}
+        _container = null;
     }
 	
 	public static List<Shot> allShots()

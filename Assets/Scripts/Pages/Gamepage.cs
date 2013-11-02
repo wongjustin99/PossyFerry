@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Gamepage : PageContatiner, FMultiTouchableInterface
+public class GamePage : PageContatiner, FMultiTouchableInterface
 {
 	private FSprite _background;
 	private Player	_player;
@@ -28,8 +28,11 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 	
 	private float frameCount = 0;
 	
-	public Gamepage()
+	public GamePage()
 	{
+        // initialise ShotManager
+        ShotManager.setContainer(this);
+
 		ListenForUpdate (HandleUpdate);
 		
 		_background = new FSprite("JungleClearBG");
@@ -56,10 +59,13 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 
 		//_control = new TouchControlScheme(_player);
 		_control = new PadControlScheme(_player);
-		_debug_control = new XboxControlScheme(_player);
 		
 		AddChild (_control);
-		AddChild (_debug_control);
+        // add xbox controls for debugging only
+        #if UNITY_EDITOR
+		    _debug_control = new XboxControlScheme(_player);
+		    AddChild (_debug_control);
+        #endif
 
         // music loop
 		//FSoundManager.PlayMusic("loop1", 1.0f);

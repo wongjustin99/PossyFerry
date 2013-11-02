@@ -9,8 +9,10 @@ public class Shot :  FSprite
 	private float speedX = 0.0f;
 	private float speedY = 0.0f;
 	
-	public Shot(float speedX, float speedY) : base("Banana")
+	public Shot(float x, float y, float speedX, float speedY) : base("Banana")
 	{
+        this.x = x;
+        this.y = y;
 		this.scale = 0.25f;
 		this.speedX = speedX;
 		this.speedY = speedY;

@@ -15,7 +15,7 @@ public enum PageType
 public class Main : MonoBehaviour
 {
 	public BCharacter character;
-	public Gamepage gamePage;
+	public GamePage gamePage;
 	public static Main instance;
 	
 	private PageContatiner _currentPage = null;
@@ -36,7 +36,7 @@ public class Main : MonoBehaviour
 
         _stage = Futile.stage;
 		
-		GoToPage(PageType.TitlePage);
+		GoToPage(PageType.GamePage);
 	}
 	
 	public void GoToPage(PageType pageType)
@@ -49,7 +49,7 @@ public class Main : MonoBehaviour
 		}
 		else if(pageType == PageType.GamePage)
 		{
-			pageToCreate = new Gamepage();	
+			pageToCreate = new GamePage();	
 		}
 		else if(pageType == PageType.OptionPage)
 		{
