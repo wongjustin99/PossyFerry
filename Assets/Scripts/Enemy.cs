@@ -5,17 +5,11 @@ using System;
 
 public class Enemy :  FSprite
 {
-	
-	
 	private float speedX = 3.0f;
 	private float speedY = 0.0f;
 	private float shotrate = RXRandom.Range (60.0f,80.0f);
-	
 	private float frameCount = 0;
-	
-	private Shot _shot;
-	private List<Shot> _shots = new List<Shot>();
-	
+	//private Shot _shot;
 	
 	public Enemy() : base("Monkey_0")
 	{
@@ -32,27 +26,15 @@ public class Enemy :  FSprite
 		
 		this.x -= speedX;
 		this.y += speedY;
-		
+
+		// enemy shoots
 		if(frameCount%shotrate == 0)
 		{
-			_shot = new Shot(-5.0f, 0.0f);
+			Shot _shot = new Shot(-5.0f, 0.0f);
 			_shot.x = this.x;
 			_shot.y = this.y;
-			ShotContainer.addEnemyShotToContainer(_shot);
+			ShotManager.createEnemyShot(_shot);
 		}
-		
-		for(int b = _shots.Count - 1; b>=0; b--)
-		{
-			Shot shotted = _shots[b];
-			if(shotted.x < -Futile.screen.halfWidth)
-				ShotContainer.deleteEnemyShotFromContainer(shotted);
-		}
-		
 		frameCount += 1;
-	}
-	
-	public List<Shot> getShots()
-	{
-		return _shots;
 	}
 }
