@@ -5,7 +5,6 @@ using System;
 
 public class GamePage : PageContatiner, FMultiTouchableInterface
 {
-	private FSprite _background;
 	private Player	_player;
 	private FContainer _holder;
 	private FButton _shootbutton;
@@ -35,7 +34,6 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 
 		ListenForUpdate (HandleUpdate);
 		
-		_background = new FSprite("JungleClearBG");
 		_player = new Player();
         _enemies = new List<Enemy>();
 	
@@ -43,9 +41,9 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		_backButton.x = Futile.screen.halfWidth - 30.0f;
 		_backButton.y = Futile.screen.halfHeight - 30.0f;
 
-		// initialise BG
-		AddChild(_background);
-	
+        // initialise level
+        Level myLevel = new TestLevel(this);
+
 		// initialise player
 		_player.x = 0.0f;
 		_player.y = 0.0f;
