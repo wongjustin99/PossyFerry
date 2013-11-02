@@ -12,8 +12,6 @@ public class TitlePage : PageContatiner
 	private FButton _startButton;
 	public TitlePage ()
 	{
-		//_titlePage = new FLabel("Franchise", "TitlePage");
-		//Futile.stage.AddChild(_titlePage);
 		_background = new FSprite("JungleBlurryBG");
 		_optionButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
 		_optionButton.AddLabel("Franchise", "Option", new Color(0.45f,0.25f,0.0f,1.0f));

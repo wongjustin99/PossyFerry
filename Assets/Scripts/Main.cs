@@ -20,6 +20,7 @@ public class Main : MonoBehaviour
 	
 	private PageContatiner _currentPage = null;
 	private PageType _currentPageType = PageType.None;
+    private FStage _stage;
 	// Use this for initialization
 	void Start () {
 		instance = this;
@@ -32,6 +33,8 @@ public class Main : MonoBehaviour
 		Futile.atlasManager.LoadAtlas("Atlases/BananaGameAtlas");
 		
 		Futile.atlasManager.LoadFont("Franchise","FranchiseFont"+Futile.resourceSuffix, "Atlases/FranchiseFont"+Futile.resourceSuffix, 0.0f,-4.0f);
+
+        _stage = Futile.stage;
 		
 		GoToPage(PageType.TitlePage);
 	}
@@ -62,17 +65,12 @@ public class Main : MonoBehaviour
 			_currentPageType = pageType;
 			if(_currentPage != null)
 			{
-				Futile.stage.RemoveChild(_currentPage);
+				_stage.RemoveChild(_currentPage);
 			}
 			
 			_currentPage = pageToCreate;
-			Futile.stage.AddChild(_currentPage);
+			_stage.AddChild(_currentPage);
 			_currentPage.Start();
 		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }
