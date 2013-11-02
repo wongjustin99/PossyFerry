@@ -33,7 +33,7 @@ public class Enemy :  FSprite
 			Shot _shot = new Shot(-5.0f, 0.0f);
 			_shot.x = this.x;
 			_shot.y = this.y;
-			ShotManager.createEnemyShot(_shot);
+			ShotManager.addEnemyShot(_shot);
 		}
 		frameCount += 1;
 	}

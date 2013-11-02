@@ -128,7 +128,7 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 						enemy.RemoveFromContainer();
 						_enemies.Remove(enemy);
 						// remove bullet from the list
-						ShotManager.deleteShot(_shot);
+						ShotManager.removeShot(_shot);
 					}
 				}
 		}
@@ -146,7 +146,7 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 			if(playerBounds.Contains(shotPos))
 			{	
 				_player.playerDeath ();
-				ShotManager.deleteShot(_shot);
+				ShotManager.removeShot(_shot);
 			}
 		}
 	}

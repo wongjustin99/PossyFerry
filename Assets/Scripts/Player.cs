@@ -25,7 +25,7 @@ public class Player : FSprite {
             Shot _shot = new Shot(5.0f, 0.0f);
             _shot.x = x + 10;
             _shot.y = y;
-		    ShotManager.createPlayerShot(_shot);
+		    ShotManager.addPlayerShot(_shot);
 
             last_shot_time = Time.time;
         }

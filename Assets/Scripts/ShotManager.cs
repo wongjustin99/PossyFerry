@@ -21,40 +21,40 @@ public class ShotManager : FContainer
 			Shot shot = _allShots[i];
             if ((shot.x < -Futile.screen.halfWidth) || (shot.x > Futile.screen.halfWidth))
             {
-                ShotManager.deleteShot(shot);
+                ShotManager.removeShot(shot);
             }
 		}
     }
 	
-	public static void createPlayerShot(Shot shot)
+	public static void addPlayerShot(Shot shot)
 	{
 		_playerShots.Add(shot);
 		_allShots.Add(shot);
 		Futile.stage.AddChild(shot);
 	}
 	
-	public static void createEnemyShot(Shot shot)
+	public static void addEnemyShot(Shot shot)
 	{
 		_enemyShots.Add(shot);
 		_allShots.Add(shot);
 		Futile.stage.AddChild(shot);
 	}
 	
-	public static void deletePlayerShot(Shot shot)
+	public static void removePlayerShot(Shot shot)
 	{
 		_playerShots.Remove(shot);
 		_allShots.Remove(shot);
         Futile.stage.RemoveChild(shot);
 	}
 	
-	public static void deleteEnemyShot(Shot shot)
+	public static void removeEnemyShot(Shot shot)
 	{
 		_enemyShots.Remove(shot);
 		_allShots.Remove(shot);
         Futile.stage.RemoveChild(shot);
 	}
 
-    public static void deleteShot(Shot shot)
+    public static void removeShot(Shot shot)
     {
 		_playerShots.Remove(shot);
         _enemyShots.Remove(shot);
@@ -66,7 +66,7 @@ public class ShotManager : FContainer
     {
 		for(int i = _allShots.Count - 1; i>=0; --i)
 		{
-            ShotManager.deleteShot( _allShots[i] );
+            ShotManager.removeShot( _allShots[i] );
 		}
     }
 	
