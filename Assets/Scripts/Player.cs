@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Player : FSprite {
 	
+    // last shot time
+    private float last_shot_time;
+
 	public Player() : base("Banana")
 	{
 	}
@@ -13,9 +16,19 @@ public class Player : FSprite {
 		this.x = 0;
 		this.y = 0;
 		
-		Debug.Log (" you died");
-		
 		//handle any death consequences
 	}
+
+    public void shoot()
+    {
+        if( Time.time-last_shot_time > 0.15 ){
+            Shot _shot = new Shot(5.0f, 0.0f);
+            _shot.x = x + 10;
+            _shot.y = y;
+		    ShotManager.createPlayerShot(_shot);
+
+            last_shot_time = Time.time;
+        }
+    }
 	
 }
