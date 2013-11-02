@@ -24,7 +24,7 @@ public class Main : MonoBehaviour
 	void Start () {
 		instance = this;
 		FutileParams fparams = new FutileParams(true,true,false,false);
-		fparams.AddResolutionLevel(480.0f,	1.0f,	1.0f,	"_Scale1");
+		fparams.AddResolutionLevel(480.0f, 1.0f, 1.0f, "_Scale1");
 		fparams.origin = new Vector2(0.5f, 0.5f);
 		Futile.instance.Init(fparams);
 		
@@ -34,8 +34,6 @@ public class Main : MonoBehaviour
 		Futile.atlasManager.LoadFont("Franchise","FranchiseFont"+Futile.resourceSuffix, "Atlases/FranchiseFont"+Futile.resourceSuffix, 0.0f,-4.0f);
 		
 		GoToPage(PageType.TitlePage);
-		//gamePage = new Gamepage();
-		//Futile.stage.AddChild(gamePage);
 	}
 	
 	public void GoToPage(PageType pageType)
@@ -69,7 +67,7 @@ public class Main : MonoBehaviour
 			
 			_currentPage = pageToCreate;
 			Futile.stage.AddChild(_currentPage);
-			_currentPage.Start ();
+			_currentPage.Start();
 		}
 	}
 	

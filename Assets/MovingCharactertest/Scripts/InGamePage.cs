@@ -6,7 +6,6 @@ namespace move_character_space
 	public class InGamePage : FContainer, FMultiTouchableInterface
 	{
 		public Vector2 touchPos;
-		bool touchInput = false;
 		BCharacter character;
 
 		public InGamePage ()

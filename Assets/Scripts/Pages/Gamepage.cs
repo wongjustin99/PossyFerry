@@ -5,7 +5,6 @@ using System;
 
 public class Gamepage : PageContatiner, FMultiTouchableInterface
 {
-	private ShotContainer _allShots;
 	private FSprite _background;
 	private Player	_player;
 	private FContainer _holder;
@@ -14,11 +13,10 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 	private FButton _backButton;
 	
 	private Enemy _enemy;
-	private List<Enemy> _enemies = new List<Enemy>();
+    private List<Enemy> _enemies;
 	
 	private List<Shot> _playerShots;
 	private List<Shot> _enemyShots;
-	private List<Shot> _shots;
 	
 	private ControlScheme _control;
 	private ControlScheme _debug_control;
@@ -32,15 +30,11 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 	
 	public Gamepage()
 	{
-		_allShots = new ShotContainer();
 		ListenForUpdate (HandleUpdate);
 		
-		//_holder = new FContainer();
 		_background = new FSprite("JungleClearBG");
 		_player = new Player();
-		_shots = new List<Shot>();
-		_playerShots = new List<Shot>();
-		_enemyShots = new List<Shot>();
+        _enemies = new List<Enemy>();
 	
 		_backButton = new FButton("CloseButton_normal", "CloseButton_down", "CloseButton_over", "ClickSound");
 		_backButton.x = Futile.screen.halfWidth - 30.0f;
@@ -73,6 +67,12 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 		_backButton.SignalRelease += HandleBackButtonRelease;
 	}
 
+    override public void HandleRemovedFromStage()
+    {
+        base.HandleRemovedFromStage();
+        ShotManager.reset();
+    }
+
 	private void HandleBackButtonRelease(FButton fbutton)
 	{
 		Main.instance.GoToPage(PageType.TitlePage);
@@ -80,30 +80,19 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 	
 	public void HandleUpdate()
 	{
-		_playerShots = _allShots.requestPlayerShots();
-		_enemyShots = _allShots.requestEnemyShots();
-		_shots = _allShots.requestAllShots();
+		_playerShots = ShotManager.playerShots();
+		_enemyShots = ShotManager.enemyShots();
 		// generate enemies
 		frameCount += 1;
 		if(frameCount%60 == 0)
 		{
 			_enemy = new Enemy();
-			Futile.stage.AddChild(_enemy);
+			AddChild(_enemy);
 			_enemies.Add(_enemy);
 		}
 			
 		// remove shots from edge of screen	
-		for(int b = _shots.Count - 1; b>=0; b--)
-		{
-			Shot shotted = _shots[b];
-			if(shotted.x > Futile.screen.halfWidth || shotted.x < -Futile.screen.halfWidth)
-			{
-				shotted.RemoveFromContainer();
-                _playerShots.Remove(shotted);
-                _enemyShots.Remove(shotted);
-				_shots.Remove(shotted);
-			}
-		}
+        ShotManager.checkBoundaries();
 		
 		// Check if Enemies are out of screen boundaries
 		for(int c = _enemies.Count - 1; c>=0; c--)
@@ -116,14 +105,13 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 			}
 		}
 		
-		
 		// Kevin's hit detection code - player's bullets on enemies
 		for(int b = _playerShots.Count - 1; b>=0; b--)
 		{
-			Shot shotted = _playerShots[b];
+			Shot _shot = _playerShots[b];
 			
 			// get position of the current shot  
-			Vector2 shotPos = shotted.GetPosition();
+			Vector2 shotPos = _shot.GetPosition();
 			
 			// loop through each enemy
 			for(int c = _enemies.Count - 1; c>=0; c--)
@@ -131,7 +119,6 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 					// get the current enemy
 					Enemy enemy = _enemies[c];
 				
-					
 					// draw a box around the enemy not the Monkey....
 					Rect enemyBounds = enemy.GetTextureRectRelativeToContainer();
 					
@@ -141,7 +128,7 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 						enemy.RemoveFromContainer();
 						_enemies.Remove(enemy);
 						// remove bullet from the list
-						ShotContainer.deletePlayerShotFromContainer(shotted);
+						ShotManager.deleteShot(_shot);
 					}
 				}
 		}
@@ -149,22 +136,19 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 		//loop through shots to check if player has been hit
 		for( int b = _enemyShots.Count - 1; b>=0; b--)
 		{
-			Shot shotted = _enemyShots[b];
+			Shot _shot = _enemyShots[b];
 			
 			// get position of the current shot  
-			Vector2 shotPos = shotted.GetPosition();
+			Vector2 shotPos = _shot.GetPosition();
 			
 			Rect playerBounds = _player.GetTextureRectRelativeToContainer();
 			
 			if(playerBounds.Contains(shotPos))
 			{	
 				_player.playerDeath ();
-				ShotContainer.deleteEnemyShotFromContainer(shotted);
+				ShotManager.deleteShot(_shot);
 			}
 		}
-		
-		
-		
 	}
 	
 	// Player input 	
@@ -177,8 +161,4 @@ public class Gamepage : PageContatiner, FMultiTouchableInterface
 			_control.acceptTouchTwo(touches[1]);
 		}
 	}
-	
-	
-	
-	
 }
