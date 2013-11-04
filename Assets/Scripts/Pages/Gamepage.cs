@@ -47,6 +47,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		// initialise player
 		_player.x = 0.0f;
 		_player.y = 0.0f;
+        _player.setShotStrategy(new FanShotStrategy());
 		AddChild(_player);
 		
 		// enable MultiTouch
@@ -91,6 +92,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		if(frameCount%60 == 0)
 		{
 			_enemy = new Enemy();
+            _enemy.setShotStrategy( new BasicShotStrategy() );
 			AddChild(_enemy);
 			_enemies.Add(_enemy);
 		}
