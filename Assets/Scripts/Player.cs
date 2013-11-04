@@ -51,7 +51,7 @@ public class Player : FSprite {
 		else if(shotType == ShotType.Fan)
 		{
             int[] angles = { 45, 15, 0, 315, 345};
-            //int[] angles = {-35,0,0,0,0};
+
             for (int i = 0; i < angles.Length; ++i)
             {
                 float angle = angles[i]*Mathf.Deg2Rad;
