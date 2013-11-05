@@ -9,7 +9,7 @@ public class Shot :  FSprite
 	private float speedX = 0.0f;
 	private float speedY = 0.0f;
 	
-	public Shot(float x, float y, bool isEnemy) : base("Banana")
+	public Shot(float x, float y, bool isEnemy) : base("bullet_gray")
 	{
         this.x = x;
         this.y = y;

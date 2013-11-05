@@ -31,6 +31,9 @@ public class Main : MonoBehaviour
 		
 		Futile.atlasManager.LoadAtlas("Atlases/BananaLargeAtlas");
 		Futile.atlasManager.LoadAtlas("Atlases/BananaGameAtlas");
+
+		Futile.atlasManager.LoadAtlas("Atlases/Fish-test/Fish-test");
+		Futile.atlasManager.LoadAtlas("Atlases/Fish-test/large-fish");
 		
 		Futile.atlasManager.LoadFont("Franchise","FranchiseFont"+Futile.resourceSuffix, "Atlases/FranchiseFont"+Futile.resourceSuffix, 0.0f,-4.0f);
 

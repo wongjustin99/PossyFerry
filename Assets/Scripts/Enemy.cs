@@ -12,7 +12,7 @@ public class Enemy :  FSprite
 
     ShotStrategy _shotStrategy;
 	
-	public Enemy() : base("Monkey_0")
+	public Enemy() : base("fish-fred")
 	{
 		this.x = Futile.screen.halfWidth;
 		this.y = RXRandom.Range(-Futile.screen.halfHeight, Futile.screen.halfHeight);
