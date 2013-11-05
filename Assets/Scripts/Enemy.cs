@@ -10,9 +10,13 @@ public class Enemy :  FSprite
 	private float shotrate = RXRandom.Range (60.0f,80.0f);
 	private float frameCount = 0;
 
-    ShotStrategy _shotStrategy;
-	
-	public Enemy() : base("Monkey_0")
+    protected ShotStrategy _shotStrategy;
+
+    public Enemy(String s)
+        : base(s)
+    { }
+    
+    public Enemy() : base("Monkey_0")
 	{
 		this.x = Futile.screen.halfWidth;
 		this.y = RXRandom.Range(-Futile.screen.halfHeight, Futile.screen.halfHeight);

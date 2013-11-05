@@ -91,8 +91,16 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		frameCount += 1;
 		if(frameCount%60 == 0)
 		{
-			_enemy = new Enemy();
-            _enemy.setShotStrategy( new BasicShotStrategy() );
+            if (frameCount % 240 == 0)
+            {
+                _enemy = new BossEnemy();
+                _enemy.setShotStrategy(new FanShotStrategy());
+            }
+            else
+            {
+                _enemy = new Enemy();
+                _enemy.setShotStrategy(new BasicShotStrategy());
+            }
 			AddChild(_enemy);
 			_enemies.Add(_enemy);
 		}
