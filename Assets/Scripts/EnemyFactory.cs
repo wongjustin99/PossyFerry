@@ -15,10 +15,11 @@ public static class EnemyFactory
     if( enemyName.Equals( "enemy1" ) )
     {
       return new Enemy();
-    } else if( enemyName.Equals( "enemy2" ) )
+    } else if( enemyName.Equals( "boss1" ) )
     {
-      // another kind of enemy
-      return new Enemy();
+      Enemy _myEnemy = new BossEnemy();
+      _myEnemy.setShotStrategy(new FanShotStrategy());
+      return _myEnemy;
     } else
     {
       Debug.Log( "not a valid EnemyType!" );

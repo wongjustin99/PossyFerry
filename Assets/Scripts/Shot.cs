@@ -20,7 +20,7 @@ public class Shot :  FSprite
 		ListenForUpdate (HandleUpdate);
 	}
 
-    // overloaded constructor, for angled shots
+  // overloaded constructor, for angled shots
 	public Shot(float x, float y, bool isEnemy, float angle) : this(x, y, isEnemy)
 	{
         this.speedX = Mathf.Cos(angle) * speedX;

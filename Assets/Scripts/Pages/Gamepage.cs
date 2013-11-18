@@ -107,16 +107,6 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     
     _playerShots = ShotManager.playerShots();
 		_enemyShots = ShotManager.enemyShots();
-
-		// generate enemies
-		frameCount += 1;
-		if(frameCount%60 == 0)
-		{
-			//_enemy = new Enemy();
-      //_enemy.setShotStrategy( new BasicShotStrategy() );
-			//AddChild(_enemy);
-			//_enemies.Add(_enemy);
-		}
 			
 		// remove shots from edge of screen	
     ShotManager.checkBoundaries();
