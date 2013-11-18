@@ -5,7 +5,7 @@ using System;
 
 public static class EnemyFactory
 {
-  public static Enemy generateEnemy( string enemyName )
+  public static Enemy generateEnemy( string enemyName, float x, float y )
   {
     // this should really be changed, so LevelEvents have some
     // sort of EnemyType built into them, so they can be type-
@@ -14,10 +14,10 @@ public static class EnemyFactory
     
     if( enemyName.Equals( "enemy1" ) )
     {
-      return new Enemy();
+      return new BasicEnemy(x, y);
     } else if( enemyName.Equals( "boss1" ) )
     {
-      Enemy _myEnemy = new BossEnemy();
+      Enemy _myEnemy = new BossEnemy(x, y);
       _myEnemy.setShotStrategy(new FanShotStrategy());
       return _myEnemy;
     } else

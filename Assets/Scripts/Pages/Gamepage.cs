@@ -28,8 +28,6 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	private FButton _rightbutton;
 	private FButton _leftbutton;
 	
-	private float frameCount = 0;
-	
 	public GamePage()
 	{
     // initialise ShotManager
@@ -94,12 +92,14 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     // if so, create an Enemy matching that string, or use a PFM to do it, yo
     LevelEvent _myEvent;
 
+    // eventually this stuff could move to a dedicated level manager or something
     if( _level.eventCount() != 0 ) {
       if( (Time.time - _startTime) > _level.nextEventTime() )
       {
         _myEvent = _level.popEvent();
-        _enemy = EnemyFactory.generateEnemy( _myEvent.getEnemyName() );
-        _enemy.setShotStrategy( new BasicShotStrategy() );
+        _enemy = EnemyFactory.generateEnemy( _myEvent.getEnemyName(), _myEvent.getXSpawn(), _myEvent.getYSpawn() );
+        _enemy.x = _myEvent.getXSpawn();
+        _enemy.y = _myEvent.getYSpawn();
         AddChild(_enemy);
         _enemies.Add(_enemy);
       }

@@ -3,16 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Enemy :  FSprite
+public abstract class Enemy : FSprite
 {
-	private float speedX = 3.0f;
-	private float speedY = 0.0f;
-	private float shotrate = RXRandom.Range (60.0f,80.0f);
-	private float frameCount = 0;
-
-  ShotStrategy _shotStrategy;
+  protected ShotStrategy _shotStrategy;
 	
-	public Enemy() : base("Monkey_0")
+	public Enemy() : this("Monkey_0")
 	{
     // default shotStrategy
     _shotStrategy = new BasicShotStrategy();
@@ -30,22 +25,13 @@ public class Enemy :  FSprite
     this.y = y;
   }
 
-    public void setShotStrategy( ShotStrategy _shotStrategy )
-    {
-        this._shotStrategy = _shotStrategy;
-    }
-	
-	public void HandleUpdate()
-	{
-		
-		this.x -= speedX;
-		this.y += speedY;
+  public Enemy( string sprite ) : base(sprite)
+  {
+  }
 
-		// enemy shoots
-		if(frameCount%shotrate == 0)
-		{
-            _shotStrategy.shoot(this.x, this.y, true);
-		}
-		frameCount += 1;
-	}
+  public void setShotStrategy( ShotStrategy _shotStrategy )
+  {
+      this._shotStrategy = _shotStrategy;
+  }
+  public abstract void HandleUpdate();
 }
