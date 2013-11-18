@@ -6,8 +6,7 @@ using System;
 public class TouchControlScheme : ControlScheme
 {
 	
-	public TouchControlScheme( Player target ) : base( target ){
-		_target = target;
+	public TouchControlScheme(){
 	}
 	
 	public void MoveCharacter(FTouch touch)

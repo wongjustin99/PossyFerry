@@ -10,6 +10,8 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	private FButton _shootbutton;
 	private FSprite _monkey;
 	private FButton _backButton;
+	private FLabel _scoreLabel;
+	private FLabel _timeLabel;
 	
 	private Enemy _enemy;
     private List<Enemy> _enemies;
@@ -55,14 +57,16 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		
         // add backbutton
 		AddChild(_backButton);
-
-		//_control = new TouchControlScheme(_player);
-		_control = new PadControlScheme(_player);
 		
+		// add control from the main class
+		_control = Main.instance.controlScheme;
+		_control.setTarget ( _player );
 		AddChild (_control);
+		
         // add xbox controls for debugging only
         #if UNITY_EDITOR
-		    _debug_control = new XboxControlScheme(_player);
+		    _debug_control = new XboxControlScheme();
+			_debug_control.setTarget ( _player );
 		    AddChild (_debug_control);
         #endif
 
