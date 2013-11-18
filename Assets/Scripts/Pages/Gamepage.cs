@@ -10,6 +10,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	private FButton _shootbutton;
 	private FSprite _monkey;
 	private FButton _backButton;
+	private FLabel _livesLabel;
 	
 	private Enemy _enemy;
     private List<Enemy> _enemies;
@@ -40,7 +41,16 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		_backButton = new FButton("CloseButton_normal", "CloseButton_down", "CloseButton_over", "ClickSound");
 		_backButton.x = Futile.screen.halfWidth - 30.0f;
 		_backButton.y = Futile.screen.halfHeight - 30.0f;
-
+		
+		//initialize player's lives
+		_livesLabel = new FLabel("Franchise", "Player's lives: 3 ");
+		_livesLabel.anchorX = 0.0f;
+		_livesLabel.anchorY = 1.0f;
+		_livesLabel.scale = 0.75f;
+		_livesLabel.color = new Color(0.45f,0.25f,0.0f,1.0f);
+		_livesLabel.x = -Futile.screen.halfWidth + 30.0f;
+		_livesLabel.y = Futile.screen.halfHeight - 0.0f;
+		
         // initialise level
         Level myLevel = new TestLevel(this);
 
@@ -55,6 +65,9 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		
         // add backbutton
 		AddChild(_backButton);
+		
+		// add live label
+		AddChild(Main.instance._livesLabel);
 
 		//_control = new TouchControlScheme(_player);
 		_control = new PadControlScheme(_player);
@@ -151,8 +164,8 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 			
 			if(playerBounds.Contains(shotPos))
 			{	
-				_player.playerDeath ();
 				ShotManager.removeShot(_shot);
+				_player.playerDeath ();
 			}
 		}
 	}
@@ -166,5 +179,10 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		if (touches.Length > 1){
 			_control.acceptTouchTwo(touches[1]);
 		}
+	}
+	
+	public void HandleGotLives()
+	{
+		
 	}
 }
