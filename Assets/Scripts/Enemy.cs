@@ -12,10 +12,18 @@ public class Enemy :  FSprite
 
     ShotStrategy _shotStrategy;
 	
+  public Enemy( float x, float y ) : this()
+  {
+    this.x = x;
+    this.y = y;
+  }
+
 	public Enemy() : base("Monkey_0")
 	{
 		this.x = Futile.screen.halfWidth;
 		this.y = RXRandom.Range(-Futile.screen.halfHeight, Futile.screen.halfHeight);
+    // once the sprites are swopped out, this needs to be forgone for
+    // sprites with proper resolution in the first place 
 		this.scale = 0.25f;
 		ListenForUpdate (HandleUpdate);
 	}

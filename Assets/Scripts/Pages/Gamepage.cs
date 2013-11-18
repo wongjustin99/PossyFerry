@@ -1,10 +1,13 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
 
 public class GamePage : PageContatiner, FMultiTouchableInterface
 {
+  private Level _level;
+  private float _startTime;
+
 	private Player	_player;
 	private FContainer _holder;
 	private FButton _shootbutton;
@@ -12,7 +15,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	private FButton _backButton;
 	
 	private Enemy _enemy;
-    private List<Enemy> _enemies;
+  private List<Enemy> _enemies;
 	
 	private List<Shot> _playerShots;
 	private List<Shot> _enemyShots;
@@ -29,20 +32,21 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	
 	public GamePage()
 	{
-        // initialise ShotManager
-        ShotManager.setContainer(this);
+    // initialise ShotManager
+    ShotManager.setContainer(this);
 
 		ListenForUpdate (HandleUpdate);
 		
 		_player = new Player();
-        _enemies = new List<Enemy>();
+      _enemies = new List<Enemy>();
 	
 		_backButton = new FButton("CloseButton_normal", "CloseButton_down", "CloseButton_over", "ClickSound");
 		_backButton.x = Futile.screen.halfWidth - 30.0f;
 		_backButton.y = Futile.screen.halfHeight - 30.0f;
 
-        // initialise level
-        Level myLevel = new TestLevel(this);
+    // initialise level
+    _level = new TestLevel(this);
+    _startTime = Time.time;
 
 		// initialise player
 		_player.x = 0.0f;
@@ -53,7 +57,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		// enable MultiTouch
 		EnableMultiTouch();
 		
-        // add backbutton
+    // add backbutton
 		AddChild(_backButton);
 
 		//_control = new TouchControlScheme(_player);
@@ -85,20 +89,37 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	
 	public void HandleUpdate()
 	{
-		_playerShots = ShotManager.playerShots();
+    // level checking code
+    // check for level and pop off stack if [time-_startTime > getNextEventTime()]
+    // if so, create an Enemy matching that string, or use a PFM to do it, yo
+    LevelEvent _myEvent;
+
+    if( _level.eventCount() != 0 ) {
+      if( (Time.time - _startTime) > _level.nextEventTime() )
+      {
+        _myEvent = _level.popEvent();
+        _enemy = EnemyFactory.generateEnemy( _myEvent.getEnemyName() );
+        _enemy.setShotStrategy( new BasicShotStrategy() );
+        AddChild(_enemy);
+        _enemies.Add(_enemy);
+      }
+    }
+    
+    _playerShots = ShotManager.playerShots();
 		_enemyShots = ShotManager.enemyShots();
+
 		// generate enemies
 		frameCount += 1;
 		if(frameCount%60 == 0)
 		{
-			_enemy = new Enemy();
-            _enemy.setShotStrategy( new BasicShotStrategy() );
-			AddChild(_enemy);
-			_enemies.Add(_enemy);
+			//_enemy = new Enemy();
+      //_enemy.setShotStrategy( new BasicShotStrategy() );
+			//AddChild(_enemy);
+			//_enemies.Add(_enemy);
 		}
 			
 		// remove shots from edge of screen	
-        ShotManager.checkBoundaries();
+    ShotManager.checkBoundaries();
 		
 		// Check if Enemies are out of screen boundaries
 		for(int c = _enemies.Count - 1; c>=0; c--)
@@ -157,7 +178,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		}
 	}
 	
-	// Player input 	
+	// Player input	
 	public void HandleMultiTouch(FTouch[] touches)
 	{
 		if (touches.Length > 0){

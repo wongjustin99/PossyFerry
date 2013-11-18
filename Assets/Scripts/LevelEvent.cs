@@ -2,16 +2,40 @@
 using System.Collections;
 
 public class LevelEvent {
-    private Time _triggerTime;
-    private string _eventAction;
+    private float _triggerTime;
+    private string _enemyName;
+    private float _xSpawn;
+    private float _ySpawn;
 
-    public Time getTime()
+    public LevelEvent ()
+    {
+    }
+
+    public LevelEvent( float time, string enemyName, float x, float y )
+    {
+      this._triggerTime = time;
+      this._enemyName = enemyName;
+      this._xSpawn = x;
+      this._ySpawn = y;
+    }
+
+    public float getTime()
     {
         return _triggerTime;
     }
 
-    public Time getEventAction()
+    public string getEnemyName()
     {
-        return _eventAction;
+        return _enemyName;
+    }
+
+    public float getXSpawn()
+    {
+      return _xSpawn;
+    }
+
+    public float getYSpawn()
+    {
+      return _ySpawn;
     }
 }
