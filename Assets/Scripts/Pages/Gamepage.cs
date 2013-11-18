@@ -62,23 +62,23 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		_control = new PadControlScheme(_player);
 		
 		AddChild (_control);
-        // add xbox controls for debugging only
-        #if UNITY_EDITOR
-		    _debug_control = new XboxControlScheme(_player);
-		    AddChild (_debug_control);
-        #endif
+    // add xbox controls for debugging only
+    #if UNITY_EDITOR
+    _debug_control = new XboxControlScheme(_player);
+    AddChild (_debug_control);
+    #endif
 
-        // music loop
-		//FSoundManager.PlayMusic("loop1", 1.0f);
+    // music loop
+		FSoundManager.PlayMusic("loop1", 1.0f);
 
 		_backButton.SignalRelease += HandleBackButtonRelease;
 	}
 
-    override public void HandleRemovedFromStage()
-    {
-        base.HandleRemovedFromStage();
-        ShotManager.reset();
-    }
+  override public void HandleRemovedFromStage()
+  {
+      base.HandleRemovedFromStage();
+      ShotManager.reset();
+  }
 
 	private void HandleBackButtonRelease(FButton fbutton)
 	{
