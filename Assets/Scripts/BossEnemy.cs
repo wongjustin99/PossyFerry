@@ -13,7 +13,6 @@ public class BossEnemy : Enemy
       this.x = Futile.screen.halfWidth;
       this.y = 0f;
       this.scale = 0.5f;
-      ListenForUpdate(HandleUpdate);
   }
 
   public BossEnemy( float x, float y) : base(x, y)

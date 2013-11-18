@@ -20,7 +20,6 @@ public class BasicEnemy : Enemy
     // once the sprites are swopped out, this needs to be forgone for
     // sprites with proper resolution in the first place 
 		this.scale = 0.25f;
-		ListenForUpdate (HandleUpdate);
 	}
 
   public BasicEnemy( float x, float y ) : base(x, y)
