@@ -9,6 +9,10 @@ public abstract class ControlScheme : FContainer {
 	
 	public ControlScheme(){
 	}
+
+  public ControlScheme( Player target ){
+    setTarget(target);
+  }
 	
 	public void setTarget( Player target ){
 		this._target = target;
