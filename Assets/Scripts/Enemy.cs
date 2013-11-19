@@ -6,7 +6,10 @@ using System;
 public abstract class Enemy : FSprite
 {
   protected ShotStrategy _shotStrategy;
-	
+
+  protected float health;
+    
+
 	public Enemy() : this("Monkey_0")
 	{
     // default shotStrategy
@@ -19,10 +22,24 @@ public abstract class Enemy : FSprite
 		ListenForUpdate (HandleUpdate);
 	}
 
+    public bool takeDamage(float damage)
+    {
+        bool hasDied = false;
+        //change health by subtracting damage
+        health = health - damage;
+        //check if unit has died from this damage
+        if (health <= 0)
+            hasDied = true;
+        
+        return hasDied;
+
+    }
+
   public Enemy( float x, float y ) : this()
   {
     this.x = x;
     this.y = y;
+    
   }
 
   public Enemy( string sprite ) : base(sprite)

@@ -170,10 +170,17 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 					// check if the enemy contains the player shot's position	
 					if(enemyBounds.Contains(shotPos))
 					{
-						enemy.RemoveFromContainer();
-						_enemies.Remove(enemy);
-						// remove bullet from the list
-						ShotManager.removeShot(_shot);
+                        //bullet has hit so make enemy take damage
+                        //takeDamage(damage) returns true if unit has died
+                        if(enemy.takeDamage(_shot.getDamage()))
+                        {
+						   enemy.RemoveFromContainer();
+						   _enemies.Remove(enemy);
+						    
+						   
+                        }
+                        //remove shot regardless of death or not
+                        ShotManager.removeShot(_shot);
 					}
 				}
 		}
