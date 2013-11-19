@@ -6,6 +6,7 @@ using System;
 public class GamePage : PageContatiner, FMultiTouchableInterface
 {
   private Level _level;
+  private LevelEvent _myEvent;
   private float _startTime;
 
 	private Player	_player;
@@ -43,8 +44,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		_backButton.y = Futile.screen.halfHeight - 30.0f;
 
     // initialise level
-    _level = new TestLevel(this);
-    _startTime = Time.time;
+    LevelInit();
 
 		// initialise player
 		_player.x = 0.0f;
@@ -88,11 +88,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	public void HandleUpdate()
 	{
     // level checking code
-    // check for level and pop off stack if [time-_startTime > getNextEventTime()]
-    // if so, create an Enemy matching that string, or use a PFM to do it, yo
-    LevelEvent _myEvent;
-
-    // eventually this stuff could move to a dedicated level manager or something
+      // eventually this stuff could move to a dedicated level manager or something
     if( _level.eventCount() != 0 ) {
       if( (Time.time - _startTime) > _level.nextEventTime() )
       {
@@ -103,6 +99,10 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
         AddChild(_enemy);
         _enemies.Add(_enemy);
       }
+    } else {
+      // end of level
+      //  -- either get a new one or end game, yo
+      
     }
     
     _playerShots = ShotManager.playerShots();
@@ -178,4 +178,9 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 			_control.acceptTouchTwo(touches[1]);
 		}
 	}
+  private void LevelInit()
+  {
+    _level = new TestLevel(this);
+    _startTime = Time.time;
+  }
 }
