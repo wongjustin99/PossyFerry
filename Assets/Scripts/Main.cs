@@ -18,6 +18,7 @@ public class Main : MonoBehaviour
 	public BCharacter character;
 	public GamePage gamePage;
 	public static Main instance;
+	public ControlScheme controlScheme;
 	
 	//Initialize The player's lives.
 	public FLabel _livesLabel;
@@ -28,19 +29,20 @@ public class Main : MonoBehaviour
     private FStage _stage;
 	// Use this for initialization
 	void Start () {
+		controlScheme = new TouchControlScheme();
 		instance = this;
 		FutileParams fparams = new FutileParams(true,true,false,false);
 		fparams.AddResolutionLevel(480.0f, 1.0f, 1.0f, "_Scale1");
 		fparams.origin = new Vector2(0.5f, 0.5f);
 		Futile.instance.Init(fparams);
-		
+		//load atlasses
 		Futile.atlasManager.LoadAtlas("Atlases/BananaLargeAtlas");
 		Futile.atlasManager.LoadAtlas("Atlases/BananaGameAtlas");
 		
 		Futile.atlasManager.LoadFont("Franchise","FranchiseFont"+Futile.resourceSuffix, "Atlases/FranchiseFont"+Futile.resourceSuffix, 0.0f,-4.0f);
 
         _stage = Futile.stage;
-		
+		//go to this page when starts the game
 		GoToPage(PageType.GamePage);
 	}
 	

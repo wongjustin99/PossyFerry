@@ -10,6 +10,10 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	private FButton _shootbutton;
 	private FSprite _monkey;
 	private FButton _backButton;
+
+  // Labels
+	private FLabel _scoreLabel;
+	private FLabel _timeLabel;
 	private FLabel _livesLabel;
   private int _playerLives;
 	
@@ -72,14 +76,20 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		// add live label
 		AddChild(_livesLabel);
 
-		//_control = new TouchControlScheme(_player);
-		_control = new PadControlScheme(_player);
+		//_control = new TouchControlScheme();
+		_control = new PadControlScheme();
+    _control.setTarget(_player);
 		
+		// add control from the main class
+		_control = Main.instance.controlScheme;
+		_control.setTarget ( _player );
 		AddChild (_control);
+		
         // add xbox controls for debugging only
         #if UNITY_EDITOR
-		    _debug_control = new XboxControlScheme(_player);
-		    AddChild (_debug_control);
+          _debug_control = new XboxControlScheme();
+          _debug_control.setTarget ( _player );
+          AddChild (_debug_control);
         #endif
 
         // music loop

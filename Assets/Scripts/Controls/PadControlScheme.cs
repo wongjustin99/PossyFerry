@@ -8,8 +8,7 @@ public class PadControlScheme : ControlScheme {
 	private int speedX = 0;
 	private int speedY = 0;
 	
-	public PadControlScheme( Player target ) : base( target ){
-		_target = target;
+	public PadControlScheme(){
 		pad = new GamePad();
 		AddChild (pad);
 		ListenForUpdate(HandleUpdate);
@@ -17,8 +16,10 @@ public class PadControlScheme : ControlScheme {
 	
 	public void HandleUpdate()
 	{
-		_target.x += speedX;
-		_target.y += speedY;
+		if( _target != null ) {
+			_target.x += speedX;
+			_target.y += speedY;
+		}
 	}
 	
 	override public void acceptTouchOne(FTouch touch)
