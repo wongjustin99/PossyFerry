@@ -14,6 +14,12 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	private FButton _shootbutton;
 	private FSprite _monkey;
 	private FButton _backButton;
+
+  // Labels
+	private FLabel _scoreLabel;
+	private FLabel _timeLabel;
+	private FLabel _livesLabel;
+  private int _playerLives;
 	
 	private Enemy _enemy;
   private List<Enemy> _enemies;
@@ -37,14 +43,26 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		ListenForUpdate (HandleUpdate);
 		
 		_player = new Player();
-      _enemies = new List<Enemy>();
+    _enemies = new List<Enemy>();
 	
 		_backButton = new FButton("CloseButton_normal", "CloseButton_down", "CloseButton_over", "ClickSound");
 		_backButton.x = Futile.screen.halfWidth - 30.0f;
 		_backButton.y = Futile.screen.halfHeight - 30.0f;
+		
+		//initialize player's lives
+    _playerLives = 3;
 
     // initialise level
     LevelInit();
+
+    // lives
+		_livesLabel = new FLabel("Franchise", "Player's lives: 3 ");
+		_livesLabel.anchorX = 0.0f;
+		_livesLabel.anchorY = 1.0f;
+		_livesLabel.scale = 0.75f;
+		_livesLabel.color = new Color(0.45f,0.25f,0.0f,1.0f);
+		_livesLabel.x = -Futile.screen.halfWidth + 30.0f;
+		_livesLabel.y = Futile.screen.halfHeight - 0.0f;
 
 		// initialise player
 		_player.x = 0.0f;
@@ -57,15 +75,24 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		
     // add backbutton
 		AddChild(_backButton);
-
-		//_control = new TouchControlScheme(_player);
-		_control = new PadControlScheme(_player);
 		
+		// add live label
+		AddChild(_livesLabel);
+
+		//_control = new TouchControlScheme();
+		_control = new PadControlScheme();
+    _control.setTarget(_player);
+		
+		// add control from the main class
+		_control = Main.instance.controlScheme;
+		_control.setTarget ( _player );
 		AddChild (_control);
+		
     // add xbox controls for debugging only
     #if UNITY_EDITOR
-    _debug_control = new XboxControlScheme(_player);
-    AddChild (_debug_control);
+      _debug_control = new XboxControlScheme();
+      _debug_control.setTarget ( _player );
+      AddChild (_debug_control);
     #endif
 
     // music loop
@@ -87,8 +114,12 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	
 	public void HandleUpdate()
 	{
+    
+    _playerShots = ShotManager.playerShots();
+		_enemyShots = ShotManager.enemyShots();
+			
     // level checking code
-      // eventually this stuff could move to a dedicated level manager or something
+    // -- eventually this stuff could move to a dedicated level manager or something
     if( _level.eventCount() != 0 ) {
       if( (Time.time - _startTime) > _level.nextEventTime() )
       {
@@ -102,12 +133,9 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     } else {
       // end of level
       //  -- either get a new one or end game, yo
-      
+			Main.instance.GoToPage(PageType.GameOverPage);
     }
-    
-    _playerShots = ShotManager.playerShots();
-		_enemyShots = ShotManager.enemyShots();
-			
+
 		// remove shots from edge of screen	
     ShotManager.checkBoundaries();
 		
@@ -162,11 +190,24 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 			
 			if(playerBounds.Contains(shotPos))
 			{	
-				_player.playerDeath ();
 				ShotManager.removeShot(_shot);
+				_player.playerDeath();
+		    _playerLives--;
 			}
 		}
-	}
+
+		//decrease the number of player's lives
+		if(_playerLives <= 0)
+		{
+			_livesLabel.text = "Player's Lives: " + _playerLives;
+			Main.instance.GoToPage(PageType.GameOverPage);
+		}
+		else
+		{
+			_livesLabel.text = "Player's Lives: " + _playerLives;
+		}
+		
+	} // END HANDLEUPDATE
 	
 	// Player input	
 	public void HandleMultiTouch(FTouch[] touches)
@@ -183,4 +224,5 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     _level = new TestLevel(this);
     _startTime = Time.time;
   }
+  
 }

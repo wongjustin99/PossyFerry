@@ -8,16 +8,17 @@ public class XboxControlScheme : ControlScheme {
 	private float speedX = 0;
 	private float speedY = 0;
 	
-	public XboxControlScheme( Player target ) : base( target ){
-		_target = target;
+	public XboxControlScheme(){
 		ListenForUpdate(HandleUpdate);
 	}
 	
 	public void HandleUpdate()
 	{
-		_target.x += speedX;
-		_target.y += speedY;
-        decodeTouch();
+		if( _target != null ){
+			_target.x += speedX;
+			_target.y += speedY;
+	        decodeTouch();
+		}
 	}
 	
     // these touch mehods aren't used

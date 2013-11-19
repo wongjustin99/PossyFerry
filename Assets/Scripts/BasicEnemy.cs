@@ -13,8 +13,6 @@ public class BasicEnemy : Enemy
 
 	public BasicEnemy() : base("Monkey_0")
 	{
-    // default shotStrategy
-    _shotStrategy = new BasicShotStrategy();
 		this.x = Futile.screen.halfWidth;
 		this.y = RXRandom.Range(-Futile.screen.halfHeight, Futile.screen.halfHeight);
     // once the sprites are swopped out, this needs to be forgone for
@@ -33,9 +31,9 @@ public class BasicEnemy : Enemy
 		this.y += speedY;
 
 		// enemy shoots
-		if(frameCount%shotrate == 0)
+		if(frameCount % shotrate == 0)
 		{
-            _shotStrategy.shoot(this.x, this.y, true);
+      _shotStrategy.shoot(this.x, this.y, true);
 		}
 		frameCount += 1;
 	}

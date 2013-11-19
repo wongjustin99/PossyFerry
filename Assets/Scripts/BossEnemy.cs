@@ -10,9 +10,9 @@ public class BossEnemy : Enemy
 
   public BossEnemy() : base("Monkey_0")
   {
-      this.x = Futile.screen.halfWidth;
-      this.y = 0f;
-      this.scale = 0.5f;
+    this.x = Futile.screen.halfWidth;
+    this.y = 0f;
+    this.scale = 0.5f;
   }
 
   public BossEnemy( float x, float y) : base(x, y)
@@ -25,13 +25,14 @@ public class BossEnemy : Enemy
       this.x -= speedX;
       this.y -= direction * 1.5f; 
       if (this.y >= Futile.screen.halfHeight - 10f || this.y <= -Futile.screen.halfHeight + 10f)
-          direction = direction * -1;
+        direction = direction * -1;
 
       // enemy shoots
       if (frameCount % shotrate == 0)
       {
-          this._shotStrategy.shoot(this.x, this.y, true);
+        _shotStrategy.shoot(this.x, this.y, true);
       }
       frameCount += 1;
   }
+
 }
