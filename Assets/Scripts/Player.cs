@@ -22,20 +22,6 @@ public class Player : FSprite {
 		this.x = 0;
 		this.y = 0;
 		
-		//decrease the number of player's lives
-		Main.instance.lives--;
-		if(Main.instance.lives <= 0)
-		{
-			Main.instance._livesLabel.text = "Player's Lives: " + Main.instance.lives;
-			Main.instance.GoToPage(PageType.GameOverPage);
-			return;
-		}
-		else
-		{
-			Main.instance._livesLabel.text = "Player's Lives: " + Main.instance.lives;
-		}
-		
-		
 		//handle any death consequences
 	}
 
