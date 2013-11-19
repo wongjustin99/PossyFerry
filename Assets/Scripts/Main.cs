@@ -9,7 +9,8 @@ public enum PageType
 	TitlePage,
 	GamePage,
 	OptionPage,
-	CreditPage
+	CreditPage,
+	GameOverPage
 }
 
 public class Main : MonoBehaviour
@@ -17,6 +18,10 @@ public class Main : MonoBehaviour
 	public BCharacter character;
 	public GamePage gamePage;
 	public static Main instance;
+	
+	//Initialize The player's lives.
+	public FLabel _livesLabel;
+	public int lives = 3;
 	
 	private PageContatiner _currentPage = null;
 	private PageType _currentPageType = PageType.None;
@@ -58,6 +63,10 @@ public class Main : MonoBehaviour
 		else if(pageType == PageType.CreditPage)
 		{
 			pageToCreate = new CreditPage();	
+		}
+		else if(pageType == PageType.GameOverPage)
+		{
+			pageToCreate = new GameOverPage();
 		}
 		
 		if(pageToCreate != null)
