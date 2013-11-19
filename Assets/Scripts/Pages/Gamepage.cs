@@ -1,10 +1,14 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
 
 public class GamePage : PageContatiner, FMultiTouchableInterface
 {
+  private Level _level;
+  private LevelEvent _myEvent;
+  private float _startTime;
+
 	private Player	_player;
 	private FContainer _holder;
 	private FButton _shootbutton;
@@ -18,7 +22,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
   private int _playerLives;
 	
 	private Enemy _enemy;
-    private List<Enemy> _enemies;
+  private List<Enemy> _enemies;
 	
 	private List<Shot> _playerShots;
 	private List<Shot> _enemyShots;
@@ -31,17 +35,15 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	private FButton _rightbutton;
 	private FButton _leftbutton;
 	
-	private float frameCount = 0;
-	
 	public GamePage()
 	{
-        // initialise ShotManager
-        ShotManager.setContainer(this);
+    // initialise ShotManager
+    ShotManager.setContainer(this);
 
 		ListenForUpdate (HandleUpdate);
 		
 		_player = new Player();
-        _enemies = new List<Enemy>();
+    _enemies = new List<Enemy>();
 	
 		_backButton = new FButton("CloseButton_normal", "CloseButton_down", "CloseButton_over", "ClickSound");
 		_backButton.x = Futile.screen.halfWidth - 30.0f;
@@ -50,6 +52,10 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		//initialize player's lives
     _playerLives = 3;
 
+    // initialise level
+    LevelInit();
+
+    // lives
 		_livesLabel = new FLabel("Franchise", "Player's lives: 3 ");
 		_livesLabel.anchorX = 0.0f;
 		_livesLabel.anchorY = 1.0f;
@@ -57,9 +63,6 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		_livesLabel.color = new Color(0.45f,0.25f,0.0f,1.0f);
 		_livesLabel.x = -Futile.screen.halfWidth + 30.0f;
 		_livesLabel.y = Futile.screen.halfHeight - 0.0f;
-		
-        // initialise level
-        Level myLevel = new TestLevel(this);
 
 		// initialise player
 		_player.x = 0.0f;
@@ -70,7 +73,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		// enable MultiTouch
 		EnableMultiTouch();
 		
-        // add backbutton
+    // add backbutton
 		AddChild(_backButton);
 		
 		// add live label
@@ -85,24 +88,24 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 		_control.setTarget ( _player );
 		AddChild (_control);
 		
-        // add xbox controls for debugging only
-        #if UNITY_EDITOR
-          _debug_control = new XboxControlScheme();
-          _debug_control.setTarget ( _player );
-          AddChild (_debug_control);
-        #endif
+    // add xbox controls for debugging only
+    #if UNITY_EDITOR
+      _debug_control = new XboxControlScheme();
+      _debug_control.setTarget ( _player );
+      AddChild (_debug_control);
+    #endif
 
-        // music loop
-		//FSoundManager.PlayMusic("loop1", 1.0f);
+    // music loop
+		FSoundManager.PlayMusic("loop1", 1.0f);
 
 		_backButton.SignalRelease += HandleBackButtonRelease;
 	}
 
-    override public void HandleRemovedFromStage()
-    {
-        base.HandleRemovedFromStage();
-        ShotManager.reset();
-    }
+  override public void HandleRemovedFromStage()
+  {
+      base.HandleRemovedFromStage();
+      ShotManager.reset();
+  }
 
 	private void HandleBackButtonRelease(FButton fbutton)
 	{
@@ -111,20 +114,30 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	
 	public void HandleUpdate()
 	{
-		_playerShots = ShotManager.playerShots();
+    
+    _playerShots = ShotManager.playerShots();
 		_enemyShots = ShotManager.enemyShots();
-		// generate enemies
-		frameCount += 1;
-		if(frameCount%60 == 0)
-		{
-			_enemy = new Enemy();
-            _enemy.setShotStrategy( new BasicShotStrategy() );
-			AddChild(_enemy);
-			_enemies.Add(_enemy);
-		}
 			
+    // level checking code
+    // -- eventually this stuff could move to a dedicated level manager or something
+    if( _level.eventCount() != 0 ) {
+      if( (Time.time - _startTime) > _level.nextEventTime() )
+      {
+        _myEvent = _level.popEvent();
+        _enemy = EnemyFactory.generateEnemy( _myEvent.getEnemyName(), _myEvent.getXSpawn(), _myEvent.getYSpawn() );
+        _enemy.x = _myEvent.getXSpawn();
+        _enemy.y = _myEvent.getYSpawn();
+        AddChild(_enemy);
+        _enemies.Add(_enemy);
+      }
+    } else {
+      // end of level
+      //  -- either get a new one or end game, yo
+			Main.instance.GoToPage(PageType.GameOverPage);
+    }
+
 		// remove shots from edge of screen	
-        ShotManager.checkBoundaries();
+    ShotManager.checkBoundaries();
 		
 		// Check if Enemies are out of screen boundaries
 		for(int c = _enemies.Count - 1; c>=0; c--)
@@ -194,7 +207,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 			_livesLabel.text = "Player's Lives: " + _playerLives;
 		}
 		
-	}
+	} // END HANDLEUPDATE
 	
 	// Player input	
 	public void HandleMultiTouch(FTouch[] touches)
@@ -206,4 +219,10 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 			_control.acceptTouchTwo(touches[1]);
 		}
 	}
+  private void LevelInit()
+  {
+    _level = new TestLevel(this);
+    _startTime = Time.time;
+  }
+  
 }
