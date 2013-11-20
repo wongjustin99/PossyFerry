@@ -5,6 +5,5 @@ using System;
 
 public interface ShotStrategy
 {
-   
-    void shoot(float x, float y, bool isEnemy);
+  void shoot(float x, float y, bool isEnemy);
 }

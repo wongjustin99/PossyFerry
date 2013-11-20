@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class FanShotStrategy : ShotStrategy {
-   
-    public void shoot( float x, float y, bool isEnemy )
+
+  public void shoot( float x, float y, bool isEnemy )
   {
     float damage = 6.0f;
     Shot shotToCreate;
-    int[] angles = { 45, 15, 0, 315, 345};
+    int[] angles = { 45, 15, 0, 315, 345 };
 
     for (int i = 0; i < angles.Length; ++i)
     {
