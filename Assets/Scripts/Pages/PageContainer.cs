@@ -5,15 +5,12 @@ using System;
 
 public class PageContatiner : FContainer
 {
-	public PageContatiner()
-	{
-		
-	}
-	
-	virtual public void Start()
-	{
-		
-	}
+  public PageContatiner()
+  {
+  }
 
+  virtual public void Start()
+  {
+  }
 }
 
