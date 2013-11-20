@@ -9,7 +9,7 @@ public abstract class Enemy : FSprite
 
   protected float health;
 
-  public Enemy() : this("Monkey_0")
+	public Enemy() : base("fish-fred")
   {
     // default shotStrategy
     _shotStrategy = new BasicShotStrategy();

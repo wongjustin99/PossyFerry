@@ -13,7 +13,7 @@ public class TitlePage : PageContatiner
   public TitlePage ()
   {
     //background and buttons are created
-    _background = new FSprite("JungleBlurryBG");
+    _background = new FSprite("background_1_blur");
     _optionButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
     _optionButton.AddLabel("Franchise", "Option", new Color(0.45f,0.25f,0.0f,1.0f));
     _creditButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
@@ -33,6 +33,7 @@ public class TitlePage : PageContatiner
     _optionButton.SignalRelease += HandleOptionButtonRelease;
     _creditButton.SignalRelease += HandleCreditButtonRelease;
     _startButton.SignalRelease += HandleStartButtonRelease;
+
   }
   private void HandleOptionButtonRelease (FButton button)
   {

@@ -10,7 +10,7 @@ public class GameOverPage: PageContatiner
   public GameOverPage ()
   {
     //initialize
-    _background = new FSprite("JungleBlurryBG");
+    _background = new FSprite("background_1_blur");
     _backButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
     _backButton.AddLabel("Franchise", "Back", new Color(0.45f,0.25f,0.0f,1.0f));
     _GameOver = new FLabel("Franchise", "Game Over for YOU");

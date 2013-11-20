@@ -7,8 +7,10 @@ public class Player : FSprite {
   private float last_shot_time;
   private ShotStrategy _shotStrategy;
 
-  public Player() : base("Banana")
+  public Player() : base("fish-frond")
   {
+    this.scale = 0.5f;
+    this.scaleX = -0.5f;
   }
 
   public void setShotStrategy( ShotStrategy _shotStrategy )

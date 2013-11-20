@@ -5,11 +5,12 @@ using System;
 
 public class Shot :  FSprite
 {
+
   private float speedX = 0.0f;
   private float speedY = 0.0f;
-  private float damage = 0.0f;
+  private float damage;
 
-  public Shot(float x, float y, bool isEnemy, float dmg) : base("Banana")
+  public Shot(float x, float y, bool isEnemy, float dmg) : base("bullet_gray")
   {
     this.x = x;
     this.y = y;
