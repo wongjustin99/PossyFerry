@@ -17,22 +17,23 @@ public class BossEnemy : Enemy
 
   public BossEnemy( float x, float y) : base(x, y)
   {
+    health = 50.0f;
   }
 
   override public void HandleUpdate()
   {
-      //movement of boss, slowly moves across screen and up and down
-      this.x -= speedX;
-      this.y -= direction * 1.5f; 
-      if (this.y >= Futile.screen.halfHeight - 10f || this.y <= -Futile.screen.halfHeight + 10f)
-        direction = direction * -1;
+    //movement of boss, slowly moves across screen and up and down
+    this.x -= speedX;
+    this.y -= direction * 1.5f; 
+    if (this.y >= Futile.screen.halfHeight - 10f || this.y <= -Futile.screen.halfHeight + 10f)
+      direction = direction * -1;
 
-      // enemy shoots
-      if (frameCount % shotrate == 0)
-      {
-        _shotStrategy.shoot(this.x, this.y, true);
-      }
-      frameCount += 1;
+    // enemy shoots
+    if (frameCount % shotrate == 0)
+    {
+      _shotStrategy.shoot(this.x, this.y, true);
+    }
+    frameCount += 1;
   }
 
 }

@@ -11,7 +11,7 @@ public static class EnemyFactory
     // sort of EnemyType built into them, so they can be type-
     // checked versus being a string.
     //
-    
+
     if( enemyName.Equals( "enemy1" ) )
     {
       return new BasicEnemy(x, y);

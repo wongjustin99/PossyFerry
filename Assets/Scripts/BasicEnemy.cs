@@ -9,32 +9,32 @@ public class BasicEnemy : Enemy
   private float speedY = 0.0f;
   private float shotrate = RXRandom.Range (60.0f,80.0f);
 
-	private float frameCount = 0;
+  private float frameCount = 0;
 
-	public BasicEnemy() : base("Monkey_0")
-	{
-		this.x = Futile.screen.halfWidth;
-		this.y = RXRandom.Range(-Futile.screen.halfHeight, Futile.screen.halfHeight);
+  public BasicEnemy() : base("Monkey_0")
+  {
+    this.x = Futile.screen.halfWidth;
+    this.y = RXRandom.Range(-Futile.screen.halfHeight, Futile.screen.halfHeight);
     // once the sprites are swopped out, this needs to be forgone for
     // sprites with proper resolution in the first place 
-		this.scale = 0.25f;
-	}
+    this.scale = 0.25f;
+  }
 
   public BasicEnemy( float x, float y ) : base(x, y)
   {
+    health = 10.0f;
   }
 
-	override public void HandleUpdate()
-	{
-		
-		this.x -= speedX;
-		this.y += speedY;
+  override public void HandleUpdate()
+  {
+    this.x -= speedX;
+    this.y += speedY;
 
-		// enemy shoots
-		if(frameCount % shotrate == 0)
-		{
+    // enemy shoots
+    if(frameCount % shotrate == 0)
+    {
       _shotStrategy.shoot(this.x, this.y, true);
-		}
-		frameCount += 1;
-	}
+    }
+    frameCount += 1;
+  }
 }
