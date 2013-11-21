@@ -168,7 +168,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
         Rect enemyBounds = enemy.GetTextureRectRelativeToContainer();
 
         // check if the enemy contains the player shot's position	
-        if(enemyBounds.Contains(shotPos))
+        if(enemyBounds.CheckIntersectComplex( new Rect(shotPos.x, shotPos.y, 1.0f, 1.0f) ) )
         {
           //bullet has hit so make enemy take damage
           //takeDamage(damage) returns true if unit has died
@@ -193,7 +193,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 
       Rect playerBounds = _player.GetTextureRectRelativeToContainer();
 
-      if(playerBounds.Contains(shotPos))
+      if(playerBounds.CheckIntersectComplex( new Rect(shotPos.x, shotPos.y, 1.0f, 1.0f) ) )
       {	
         ShotManager.removeShot(_shot);
         _player.playerDeath();
