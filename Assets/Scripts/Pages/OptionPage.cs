@@ -12,7 +12,7 @@ public class OptionPage: PageContatiner
   public OptionPage ()
   {
     //Create background
-    _background = new FSprite("JungleBlurryBG");
+    _background = new FSprite("background_1_blur");
     //Control label created
     _controlLabel = new FLabel("Franchise", "Controls: ");
     //buttons created
