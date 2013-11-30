@@ -15,7 +15,7 @@ public class Shot :  FSprite
     this.x = x;
     this.y = y;
     this.damage = dmg;
-    this.scale = 0.25f;
+    this.scale = 0.50f;
     int direction = isEnemy ? -1 : 1;
     this.speedX = 5*direction;
     this.speedY = 0;

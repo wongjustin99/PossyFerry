@@ -33,7 +33,7 @@ public class Main : MonoBehaviour
     controlScheme = new TouchControlScheme();
     instance = this;
     FutileParams fparams = new FutileParams(true,true,false,false);
-    fparams.AddResolutionLevel(480.0f, 1.0f, 1.0f, "_Scale1");
+    fparams.AddResolutionLevel(1280.0f, 2.0f, 2.0f, "_Scale2");
     fparams.origin = new Vector2(0.5f, 0.5f);
     Futile.instance.Init(fparams);
     //load atlasses

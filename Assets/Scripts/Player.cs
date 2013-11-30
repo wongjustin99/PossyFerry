@@ -9,8 +9,8 @@ public class Player : FSprite {
 
   public Player() : base("fish-frond")
   {
-    this.scale = 0.5f;
-    this.scaleX = -0.5f;
+    this.scale = 1.0f;
+    this.scaleX = -1.0f;
   }
 
   public void setShotStrategy( ShotStrategy _shotStrategy )

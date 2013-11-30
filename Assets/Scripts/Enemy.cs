@@ -17,7 +17,7 @@ public abstract class Enemy : FSprite
     this.y = RXRandom.Range(-Futile.screen.halfHeight, Futile.screen.halfHeight);
     // once the sprites are swopped out, this needs to be forgone for
     // sprites with proper resolution in the first place 
-    this.scale = 0.25f;
+    this.scale = 0.75f;
     ListenForUpdate (HandleUpdate);
   }
 
