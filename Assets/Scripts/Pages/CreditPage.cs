@@ -11,6 +11,8 @@ public class CreditPage: PageContatiner
     _background = new FSprite("background_1_blur");
     _backButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
     _backButton.AddLabel("Franchise", "Back", new Color(0.45f,0.25f,0.0f,1.0f));
+    _backButton.x = -Futile.screen.halfWidth + 70.0f;
+    _backButton.y = Futile.screen.halfHeight - 30.0f;
     AddChild(_background);
     AddChild(_backButton);
     _backButton.SignalRelease += HandleBackButtonRelease;

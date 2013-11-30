@@ -24,13 +24,13 @@ public class OptionPage: PageContatiner
     _touchControlButton.AddLabel("Franchise", "Touch", new Color(0.45f,0.25f,0.0f,1.0f));
     //positioning the buttons
     _controlLabel.x = -Futile.screen.halfWidth + 120.0f;
-    _backButton.x = -Futile.screen.halfWidth + 80.0f;
+    _backButton.x = -Futile.screen.halfWidth + 70.0f;
     _backButton.y = Futile.screen.halfHeight - 30.0f;
     _touchControlButton.x = -Futile.screen.halfWidth + 120.0f;
     _padControlButton.x = Futile.screen.halfWidth - 120.0f;
     _touchControlButton.y = -Futile.screen.halfHeight + 60.0f;
     _padControlButton.y = -Futile.screen.halfHeight + 60.0f;
-    _controlLabel.color = new Color(0.45f,0.25f,0.0f,1.0f);
+    _controlLabel.color = new Color(1.0f,1.0f,1.0f,1.0f);
     //adding to the stage
     AddChild(_background);
     AddChild(_controlLabel);

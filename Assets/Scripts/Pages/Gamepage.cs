@@ -10,6 +10,10 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
   private float _startTime;
 
   private Player	_player;
+  private int _playerLives;
+  private float _invincibility_timer;
+  private float _playerBlinkTimer;
+
   private FContainer _holder;
   private FButton _shootbutton;
   private FSprite _monkey;
@@ -19,7 +23,6 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
   private FLabel _scoreLabel;
   private FLabel _timeLabel;
   private FLabel _livesLabel;
-  private int _playerLives;
 
   private Enemy _enemy;
   private List<Enemy> _enemies;
@@ -49,8 +52,10 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     _backButton.x = Futile.screen.halfWidth - 30.0f;
     _backButton.y = Futile.screen.halfHeight - 30.0f;
 
-    //initialize player's lives
+    //initialize player's lives & invincibility timer
     _playerLives = 3;
+    _invincibility_timer = 2.0f;
+    _playerBlinkTimer = 0.0f;
 
     // initialise level
     LevelInit();
@@ -60,7 +65,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     _livesLabel.anchorX = 0.0f;
     _livesLabel.anchorY = 1.0f;
     _livesLabel.scale = 0.75f;
-    _livesLabel.color = new Color(0.45f,0.25f,0.0f,1.0f);
+    _livesLabel.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
     _livesLabel.x = -Futile.screen.halfWidth + 30.0f;
     _livesLabel.y = Futile.screen.halfHeight - 0.0f;
 
@@ -133,7 +138,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     } else {
       // end of level
       //  -- either get a new one or end game, yo
-      Main.instance.GoToPage(PageType.GameOverPage);
+      Main.instance.GoToPage(PageType.WinPage);
     }
 
     // remove shots from edge of screen	
@@ -193,12 +198,30 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 
       Rect playerBounds = _player.GetTextureRectRelativeToContainer();
 
-      if(playerBounds.CheckIntersectComplex( new Rect(shotPos.x, shotPos.y, 1.0f, 1.0f) ) )
+      if( playerBounds.CheckIntersectComplex( new Rect(shotPos.x, shotPos.y, 1.0f, 1.0f) )  && _invincibility_timer <= 0.0f )
       {	
         ShotManager.removeShot(_shot);
         _player.playerDeath();
         _playerLives--;
+        _invincibility_timer = 3.0f;
       }
+    }
+
+    // decrease invincibility timer && blink
+    if( _invincibility_timer > 0 )
+    {
+      _playerBlinkTimer = _playerBlinkTimer + Time.deltaTime;
+      if( _playerBlinkTimer >= 0.2f )
+      {
+        _player.isVisible = false;
+        _playerBlinkTimer = 0.0f;
+      } else if( _playerBlinkTimer >= 0.10f ) {
+        _player.isVisible = true;
+      }
+
+      _invincibility_timer -= Time.deltaTime;
+    } else {
+      _player.isVisible = true;
     }
 
     //decrease the number of player's lives
