@@ -47,7 +47,7 @@ public class Main : MonoBehaviour
 
     _stage = Futile.stage;
     //go to this page when starts the game
-    GoToPage(PageType.GamePage);
+    GoToPage(PageType.TitlePage);
   }
 
   public void GoToPage(PageType pageType)

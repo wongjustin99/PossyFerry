@@ -34,6 +34,9 @@ public class TitlePage : PageContatiner
     _creditButton.SignalRelease += HandleCreditButtonRelease;
     _startButton.SignalRelease += HandleStartButtonRelease;
 
+    // music
+    FSoundManager.PlayMusic("title_music", 1.0f);
+
   }
   private void HandleOptionButtonRelease (FButton button)
   {

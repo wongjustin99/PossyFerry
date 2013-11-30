@@ -16,6 +16,10 @@ public class CreditPage: PageContatiner
     AddChild(_background);
     AddChild(_backButton);
     _backButton.SignalRelease += HandleBackButtonRelease;
+
+    // music
+    FSoundManager.PlayMusic("credit_music", 1.0f);
+
   }
   private void HandleBackButtonRelease(FButton fbutton)
   {

@@ -101,7 +101,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 #endif
 
     // music loop
-    FSoundManager.PlayMusic("loop1", 1.0f);
+    FSoundManager.PlayMusic("ingame_music", 1.0f);
 
     _backButton.SignalRelease += HandleBackButtonRelease;
   }
