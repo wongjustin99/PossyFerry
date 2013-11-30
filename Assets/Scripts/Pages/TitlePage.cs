@@ -23,7 +23,7 @@ public class TitlePage : PageContatiner
     //positioning the buttons
     _optionButton.x = -Futile.screen.halfWidth + 120.0f;
     _creditButton.x = Futile.screen.halfWidth - 120.0f;
-    _startButton.y = -Futile.screen.halfHeight + 30.0f;
+    _startButton.y = -Futile.screen.halfHeight + 50.0f;
     //adding to display them on stage
     AddChild(_background);
     AddChild(_optionButton);

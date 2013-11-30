@@ -20,11 +20,6 @@ public class Player : FSprite {
 
   public void playerDeath()
   {
-    //return player to the middle of the screen
-    this.x = 0;
-    this.y = 0;
-
-    //handle any death consequences
   }
 
   public void shoot()

@@ -10,7 +10,8 @@ public enum PageType
     GamePage,
     OptionPage,
     CreditPage,
-    GameOverPage
+    GameOverPage,
+    WinPage
 }
 
 public class Main : MonoBehaviour
@@ -72,6 +73,10 @@ public class Main : MonoBehaviour
     else if(pageType == PageType.GameOverPage)
     {
       pageToCreate = new GameOverPage();
+    }
+    else if(pageType == PageType.WinPage)
+    {
+      pageToCreate = new WinPage();
     }
 
     if(pageToCreate != null)
