@@ -10,22 +10,34 @@ public class TitlePage : PageContatiner
   private FButton _optionButton;
   private FButton _creditButton;
   private FButton _startButton;
+  private FLabel _title;
   public TitlePage ()
   {
     //background and buttons are created
     _background = new FSprite("background_1_blur");
+	_title = new FLabel("Franchise", "Shoot 'em");
+	_title.scale = 1.5f;
+    _title.color = new Color(1.0f, 0.5f, 0.5f, 1.0f);
     _optionButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
     _optionButton.AddLabel("Franchise", "Option", new Color(0.45f,0.25f,0.0f,1.0f));
-    _creditButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
+    _optionButton.scale = 0.5f;
+	_creditButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
     _creditButton.AddLabel("Franchise", "Credits", new Color(0.45f,0.25f,0.0f,1.0f));
-    _startButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
+    _creditButton.scale = 0.5f;
+	_startButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
     _startButton.AddLabel("Franchise", "START!", new Color(0.45f,0.25f,0.0f,1.0f));
     //positioning the buttons
-    _optionButton.x = -Futile.screen.halfWidth + 120.0f;
+	_title.y = Futile.screen.halfHeight - 60.0f;
+    _optionButton.x = Futile.screen.halfWidth - 120.0f;
+	_optionButton.y = -Futile.screen.halfHeight + 80.0f;
     _creditButton.x = Futile.screen.halfWidth - 120.0f;
-    _startButton.y = -Futile.screen.halfHeight + 50.0f;
-    //adding to display them on stage
+
+    _startButton.y = -Futile.screen.halfHeight + 30.0f;
+	_startButton.x = Futile.screen.halfWidth - 90.0f;
+
+	//adding to display them on stage
     AddChild(_background);
+	AddChild(_title);
     AddChild(_optionButton);
     AddChild(_creditButton);
     AddChild(_startButton);

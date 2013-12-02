@@ -8,6 +8,7 @@ public abstract class Enemy : FSprite
   protected ShotStrategy _shotStrategy;
 
   protected float health;
+	protected int points;
 
 	public Enemy() : base("fish-fred")
   {
@@ -18,6 +19,7 @@ public abstract class Enemy : FSprite
     // once the sprites are swopped out, this needs to be forgone for
     // sprites with proper resolution in the first place 
     this.scale = 0.75f;
+	points = 0;
     ListenForUpdate (HandleUpdate);
   }
 
@@ -48,4 +50,7 @@ public abstract class Enemy : FSprite
     this._shotStrategy = _shotStrategy;
   }
   public abstract void HandleUpdate();
+	public int getPoints(){
+		return points;
+	}
 }

@@ -18,6 +18,7 @@ public class BossEnemy : Enemy
   public BossEnemy( float x, float y) : base(x, y)
   {
     health = 50.0f;
+	points = 8; // the other constructor isn't used, PLEASE FIX THIS LATER
   }
 
   override public void HandleUpdate()

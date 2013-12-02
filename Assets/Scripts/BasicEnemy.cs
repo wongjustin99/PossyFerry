@@ -23,6 +23,7 @@ public class BasicEnemy : Enemy
   public BasicEnemy( float x, float y ) : base(x, y)
   {
     health = 10.0f;
+	points = 1;
   }
 
   override public void HandleUpdate()

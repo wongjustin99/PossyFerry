@@ -49,13 +49,15 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     _enemies = new List<Enemy>();
 
     _backButton = new FButton("CloseButton_normal", "CloseButton_down", "CloseButton_over", "ClickSound");
-    _backButton.x = Futile.screen.halfWidth - 30.0f;
+    _backButton.scale = 0.5f;
+	_backButton.x = Futile.screen.halfWidth - 30.0f;
     _backButton.y = Futile.screen.halfHeight - 30.0f;
 
     //initialize player's lives & invincibility timer
     _playerLives = 3;
     _invincibility_timer = 2.0f;
     _playerBlinkTimer = 0.0f;
+	Main.instance.score = 0;
 
     // initialise level
     LevelInit();
@@ -68,6 +70,15 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     _livesLabel.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
     _livesLabel.x = -Futile.screen.halfWidth + 30.0f;
     _livesLabel.y = Futile.screen.halfHeight - 0.0f;
+		
+	//score
+	_scoreLabel = new FLabel("Franchise", "Score: 0");
+	_scoreLabel.anchorX = 0.0f;
+    _scoreLabel.anchorY = 1.0f;
+    _scoreLabel.scale = 0.75f;
+    _scoreLabel.color = new Color(0.45f,0.25f,0.0f,1.0f);
+    _scoreLabel.x = Futile.screen.halfWidth - 150.0f;
+    _scoreLabel.y = Futile.screen.halfHeight - 0.0f;
 
     // initialise player
     _player.x = 0.0f;
@@ -83,6 +94,9 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 
     // add live label
     AddChild(_livesLabel);
+	
+	// add score label
+	AddChild(_scoreLabel);
 
     //_control = new TouchControlScheme();
     _control = new PadControlScheme();
@@ -181,6 +195,8 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
           {
             enemy.RemoveFromContainer();
             _enemies.Remove(enemy);
+			Main.instance.score += enemy.getPoints();
+			_scoreLabel.text = "Score: " + Main.instance.score;
           }
           //remove shot regardless of death or not
           ShotManager.removeShot(_shot);

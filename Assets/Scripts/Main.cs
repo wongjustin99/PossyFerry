@@ -21,9 +21,10 @@ public class Main : MonoBehaviour
   public static Main instance;
   public ControlScheme controlScheme;
 
-  //Initialize The player's lives.
+  //Initialize The player's lives & other ching chongs
   public FLabel _livesLabel;
   public int lives = 3;
+	public int score;
 
   private PageContatiner _currentPage = null;
   private PageType _currentPageType = PageType.None;
