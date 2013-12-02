@@ -49,7 +49,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     _enemies = new List<Enemy>();
 
     _backButton = new FButton("CloseButton_normal", "CloseButton_down", "CloseButton_over", "ClickSound");
-    _backButton.scale = 0.5f;
+    _backButton.scale = 0.8f;
 	_backButton.x = Futile.screen.halfWidth - 30.0f;
     _backButton.y = Futile.screen.halfHeight - 30.0f;
 
@@ -66,7 +66,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     _livesLabel = new FLabel("Franchise", "Player's lives: 3 ");
     _livesLabel.anchorX = 0.0f;
     _livesLabel.anchorY = 1.0f;
-    _livesLabel.scale = 0.75f;
+    _livesLabel.scale = 1.25f;
     _livesLabel.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
     _livesLabel.x = -Futile.screen.halfWidth + 30.0f;
     _livesLabel.y = Futile.screen.halfHeight - 0.0f;
@@ -75,9 +75,9 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
 	_scoreLabel = new FLabel("Franchise", "Score: 0");
 	_scoreLabel.anchorX = 0.0f;
     _scoreLabel.anchorY = 1.0f;
-    _scoreLabel.scale = 0.75f;
-    _scoreLabel.color = new Color(0.45f,0.25f,0.0f,1.0f);
-    _scoreLabel.x = Futile.screen.halfWidth - 150.0f;
+    _scoreLabel.scale = 1.25f;
+    _scoreLabel.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+    _scoreLabel.x = Futile.screen.halfWidth - 200.0f;
     _scoreLabel.y = Futile.screen.halfHeight - 0.0f;
 
     // initialise player
@@ -140,8 +140,9 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     // level checking code
     // -- eventually this stuff could move to a dedicated level manager or something
     if( _level.eventCount() != 0 ) {
-      if( (Time.time - _startTime) > _level.nextEventTime() )
+      if( (Time.time - _startTime) > ( _level.nextEventTime()) )
       {
+		Debug.Log ("hore");
         _myEvent = _level.popEvent();
         _enemy = EnemyFactory.generateEnemy( _myEvent.getEnemyName(), _myEvent.getXSpawn(), _myEvent.getYSpawn() );
         _enemy.x = _myEvent.getXSpawn();
@@ -162,7 +163,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     for(int c = _enemies.Count - 1; c>=0; c--)
     {
       Enemy enemy = _enemies[c];
-      if(enemy.x < -Futile.screen.halfWidth + 100.0f)
+      if(enemy.x < -Futile.screen.halfWidth - 100.0f)
       {
         enemy.RemoveFromContainer();
         _enemies.Remove(enemy);
