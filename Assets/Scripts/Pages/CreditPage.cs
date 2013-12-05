@@ -26,7 +26,7 @@ public class CreditPage: PageContatiner
 	_credits2 = new FLabel("Franchise",  "Senior Project Advisor: \n" +
 											"Dr. Doug D. Dankel \n\n" +
 											"Music: \n" +
-											"Tyler Cox");
+											"Megalant");
 	_developers.y = Futile.screen.halfHeight - 130.0f;
 	_credits2.y = -Futile.screen.halfHeight + 85.0f;
 	_developers.scale = 0.65f;
