@@ -13,29 +13,37 @@ public enum PageType
     GameOverPage,
     WinPage
 }
+public enum ControlType
+{
+    Pad,
+    Touch,
+    Xbox
+}
 
 public class Main : MonoBehaviour
 {
   public BCharacter character;
   public GamePage gamePage;
   public static Main instance;
-  public ControlScheme controlScheme;
 
-  //Initialize The player's lives.
+  //Initialize The player's lives & other ching chongs
   public FLabel _livesLabel;
   public int lives = 3;
+  public int score;
+  private ControlType _currentControlType = ControlType.Touch;
 
   private PageContatiner _currentPage = null;
   private PageType _currentPageType = PageType.None;
   private FStage _stage;
+
   // Use this for initialization
   void Start () {
-    controlScheme = new TouchControlScheme();
     instance = this;
     FutileParams fparams = new FutileParams(true,true,false,false);
     fparams.AddResolutionLevel(1280.0f, 2.0f, 2.0f, "_Scale2");
     fparams.origin = new Vector2(0.5f, 0.5f);
     Futile.instance.Init(fparams);
+
     //load atlasses
     Futile.atlasManager.LoadAtlas("Atlases/BananaLargeAtlas");
     Futile.atlasManager.LoadAtlas("Atlases/BananaGameAtlas");
@@ -48,6 +56,28 @@ public class Main : MonoBehaviour
     _stage = Futile.stage;
     //go to this page when starts the game
     GoToPage(PageType.TitlePage);
+  }
+
+  public ControlScheme getControlScheme( ControlType controlType )
+  {
+    if( controlType == ControlType.Pad )
+    {
+      return new PadControlScheme();
+    } else if( controlType == ControlType.Touch )
+    {
+      return new TouchControlScheme();
+    } else if( controlType == ControlType.Xbox)
+    {
+      return new XboxControlScheme();
+    } else {
+      Debug.Log( "No valid ControlScheme type!" );
+      return null;
+    }
+  }
+
+  public ControlScheme getControlScheme()
+  {
+    return getControlScheme( _currentControlType );
   }
 
   public void GoToPage(PageType pageType)

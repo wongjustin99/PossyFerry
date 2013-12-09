@@ -49,6 +49,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     _enemies = new List<Enemy>();
 
     _backButton = new FButton("CloseButton_normal", "CloseButton_down", "CloseButton_over", "ClickSound");
+    _backButton.scale = 0.8f;
     _backButton.x = Futile.screen.halfWidth - 30.0f;
     _backButton.y = Futile.screen.halfHeight - 30.0f;
 
@@ -56,6 +57,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     _playerLives = 3;
     _invincibility_timer = 2.0f;
     _playerBlinkTimer = 0.0f;
+    Main.instance.score = 0;
 
     // initialise level
     LevelInit();
@@ -64,10 +66,19 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     _livesLabel = new FLabel("Franchise", "Player's lives: 3 ");
     _livesLabel.anchorX = 0.0f;
     _livesLabel.anchorY = 1.0f;
-    _livesLabel.scale = 0.75f;
+    _livesLabel.scale = 1.25f;
     _livesLabel.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
     _livesLabel.x = -Futile.screen.halfWidth + 30.0f;
     _livesLabel.y = Futile.screen.halfHeight - 0.0f;
+
+    //score
+    _scoreLabel = new FLabel("Franchise", "Score: 0");
+    _scoreLabel.anchorX = 0.0f;
+    _scoreLabel.anchorY = 1.0f;
+    _scoreLabel.scale = 1.25f;
+    _scoreLabel.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+    _scoreLabel.x = Futile.screen.halfWidth - 200.0f;
+    _scoreLabel.y = Futile.screen.halfHeight - 0.0f;
 
     // initialise player
     _player.x = 0.0f;
@@ -84,12 +95,15 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     // add live label
     AddChild(_livesLabel);
 
+    // add score label
+    AddChild(_scoreLabel);
+
     //_control = new TouchControlScheme();
     _control = new PadControlScheme();
     _control.setTarget(_player);
 
     // add control from the main class
-    _control = Main.instance.controlScheme;
+    _control = Main.instance.getControlScheme();
     _control.setTarget ( _player );
     AddChild (_control);
 
@@ -106,10 +120,14 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     _backButton.SignalRelease += HandleBackButtonRelease;
   }
 
+  // clean up references to other things before GamePage removed
   override public void HandleRemovedFromStage()
   {
     base.HandleRemovedFromStage();
     ShotManager.reset();
+    //_control = null;
+    //Main.instance.controlScheme = null;
+    //_control.setTarget(null);
   }
 
   private void HandleBackButtonRelease(FButton fbutton)
@@ -126,7 +144,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     // level checking code
     // -- eventually this stuff could move to a dedicated level manager or something
     if( _level.eventCount() != 0 ) {
-      if( (Time.time - _startTime) > _level.nextEventTime() )
+      if( (Time.time - _startTime) > ( _level.nextEventTime()) )
       {
         _myEvent = _level.popEvent();
         _enemy = EnemyFactory.generateEnemy( _myEvent.getEnemyName(), _myEvent.getXSpawn(), _myEvent.getYSpawn() );
@@ -148,7 +166,7 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     for(int c = _enemies.Count - 1; c>=0; c--)
     {
       Enemy enemy = _enemies[c];
-      if(enemy.x < -Futile.screen.halfWidth + 100.0f)
+      if(enemy.x < -Futile.screen.halfWidth - 100.0f)
       {
         enemy.RemoveFromContainer();
         _enemies.Remove(enemy);
@@ -181,6 +199,8 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
           {
             enemy.RemoveFromContainer();
             _enemies.Remove(enemy);
+            Main.instance.score += enemy.getPoints();
+            _scoreLabel.text = "Score: " + Main.instance.score;
           }
           //remove shot regardless of death or not
           ShotManager.removeShot(_shot);

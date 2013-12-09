@@ -11,18 +11,22 @@ public class BasicEnemy : Enemy
 
   private float frameCount = 0;
 
-  public BasicEnemy() : base("Monkey_0")
+  public BasicEnemy() : base("fish-fred")
   {
     this.x = Futile.screen.halfWidth;
     this.y = RXRandom.Range(-Futile.screen.halfHeight, Futile.screen.halfHeight);
+
+
     // once the sprites are swopped out, this needs to be forgone for
     // sprites with proper resolution in the first place 
-    this.scale = 0.25f;
   }
 
-  public BasicEnemy( float x, float y ) : base(x, y)
+  override protected void initEnemy()
   {
+    _shotStrategy = new BasicShotStrategy();
+    points = 1;
     health = 10.0f;
+    scale = 0.5f;
   }
 
   override public void HandleUpdate()

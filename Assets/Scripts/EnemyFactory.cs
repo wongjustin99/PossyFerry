@@ -14,11 +14,15 @@ public static class EnemyFactory
 
     if( enemyName.Equals( "enemy1" ) )
     {
-      return new BasicEnemy(x, y);
+      Enemy _myEnemy = new BasicEnemy();
+      _myEnemy.x = x;
+      _myEnemy.y = y;
+      return _myEnemy;
     } else if( enemyName.Equals( "boss1" ) )
     {
-      Enemy _myEnemy = new BossEnemy(x, y);
-      _myEnemy.setShotStrategy(new FanShotStrategy());
+      Enemy _myEnemy = new BossEnemy();
+      _myEnemy.x = x;
+      _myEnemy.y = y;
       return _myEnemy;
     } else
     {

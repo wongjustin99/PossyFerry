@@ -8,16 +8,23 @@ public abstract class Enemy : FSprite
   protected ShotStrategy _shotStrategy;
 
   protected float health;
+  protected int points;
 
-	public Enemy() : base("fish-fred")
+  public Enemy() : base("fish-fred")
   {
-    // default shotStrategy
-    _shotStrategy = new BasicShotStrategy();
     this.x = Futile.screen.halfWidth;
     this.y = RXRandom.Range(-Futile.screen.halfHeight, Futile.screen.halfHeight);
     // once the sprites are swopped out, this needs to be forgone for
     // sprites with proper resolution in the first place 
     this.scale = 0.75f;
+
+    initEnemy ();
+    ListenForUpdate (HandleUpdate);
+  }
+
+  public Enemy( string sprite ) : base(sprite)
+  {
+    initEnemy ();
     ListenForUpdate (HandleUpdate);
   }
 
@@ -33,19 +40,22 @@ public abstract class Enemy : FSprite
     return hasDied;
   }
 
-  public Enemy( float x, float y ) : this()
-  {
-    this.x = x;
-    this.y = y;
-  }
-
-  public Enemy( string sprite ) : base(sprite)
-  {
+  public int getPoints(){
+    return points;
   }
 
   public void setShotStrategy( ShotStrategy _shotStrategy )
   {
     this._shotStrategy = _shotStrategy;
   }
+
   public abstract void HandleUpdate();
+  abstract protected void initEnemy();
+  /*{
+  // default STUFFS
+  _shotStrategy = new BasicShotStrategy();
+  points = 1;
+  health = 10.0f;
+  }*/
+
 }
