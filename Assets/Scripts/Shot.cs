@@ -6,7 +6,7 @@ using System;
 public class Shot :  FSprite
 {
 
-  private float speedX = 0.0f;
+  private float speedX = 300.0f;
   private float speedY = 0.0f;
   private float damage;
 
@@ -17,7 +17,7 @@ public class Shot :  FSprite
     this.damage = dmg;
     this.scale = 0.50f;
     int direction = isEnemy ? -1 : 1;
-    this.speedX = 5*direction;
+    this.speedX = speedX*direction;
     this.speedY = 0;
     ListenForUpdate (HandleUpdate);
   }
@@ -31,8 +31,8 @@ public class Shot :  FSprite
 
   public void HandleUpdate()
   {
-    this.x += speedX;
-    this.y += speedY;
+    this.x += speedX * Time.deltaTime;
+    this.y += speedY * Time.deltaTime;
   }
 
   public float getDamage()

@@ -56,6 +56,10 @@ public class Main : MonoBehaviour
     _stage = Futile.stage;
     //go to this page when starts the game
     GoToPage(PageType.TitlePage);
+    // if we're in the editor, go straight to the gamePage
+#if UNITY_EDITOR
+    GoToPage(PageType.GamePage);
+#endif
   }
 
   public ControlScheme getControlScheme( ControlType controlType )

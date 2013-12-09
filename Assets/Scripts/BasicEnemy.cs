@@ -5,17 +5,18 @@ using System;
 
 public class BasicEnemy : Enemy
 {
-  private float speedX = 3.0f;
-  private float speedY = 0.0f;
-  private float shotrate = RXRandom.Range (60.0f,80.0f);
-
-  private float frameCount = 0;
+  private float _speedX = 170.0f;
+  private float _speedY = 0.0f;
+  private float _shotRate = RXRandom.Range (0.075f,0.09f);
+  private float _last_shot_time;
+  private int _burstRate = 2;
+  private int _burstCount = 0;
+  private bool _burstBool = true;
 
   public BasicEnemy() : base("fish-fred")
   {
     this.x = Futile.screen.halfWidth;
     this.y = RXRandom.Range(-Futile.screen.halfHeight, Futile.screen.halfHeight);
-
 
     // once the sprites are swopped out, this needs to be forgone for
     // sprites with proper resolution in the first place 
@@ -31,14 +32,23 @@ public class BasicEnemy : Enemy
 
   override public void HandleUpdate()
   {
-    this.x -= speedX;
-    this.y += speedY;
+    this.x -= _speedX * Time.deltaTime;
+    this.y += _speedY * Time.deltaTime;
 
-    // enemy shoots
-    if(frameCount % shotrate == 0)
-    {
-      _shotStrategy.shoot(this.x, this.y, true);
+    // shoot
+    if( Time.time - _last_shot_time > _shotRate ){
+      if( _burstBool)
+        _shotStrategy.shoot(this.x, this.y, true);
+      _last_shot_time = Time.time;
+      ++_burstCount;
     }
-    frameCount += 1;
+
+    // burst groupings
+    if( _burstCount % (_burstRate*2) == 0 ){
+      _burstBool = true;
+    } else if( (_burstCount % _burstRate) == 0 ) {
+      _burstBool = false;
+    }
+
   }
 }

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class BossEnemy : Enemy
 {
-  private float speedX = 0.5f;
-  private float shotrate = 40.0f;
-  private float frameCount = 0;
+  private float _speedX = 45.0f;
+  private float _speedY = 80.0f;
+  private float _shotRate = 0.8f;
+  // vertical direction, not horisontal ... 
   private int direction = -1;
+  private float _last_shot_time;
 
   public BossEnemy() : base("fish-jam")
   {
@@ -26,17 +28,16 @@ public class BossEnemy : Enemy
   override public void HandleUpdate()
   {
     //movement of boss, slowly moves across screen and up and down
-    this.x -= speedX;
-    this.y -= direction * 1.5f; 
-    if (this.y >= Futile.screen.halfHeight - 10f || this.y <= -Futile.screen.halfHeight + 10f)
+    this.x -= _speedX * Time.deltaTime;
+    this.y -= direction * _speedY * Time.deltaTime;
+    if (this.y >= Futile.screen.halfHeight - 10f || this.y <= -Futile.screen.halfHeight + 10.0f)
       direction = direction * -1;
 
-    // enemy shoots
-    if (frameCount % shotrate == 0)
-    {
+    // shoot
+    if( Time.time - _last_shot_time > _shotRate ){
       _shotStrategy.shoot(this.x, this.y, true);
+      _last_shot_time = Time.time;
     }
-    frameCount += 1;
   }
 
 }

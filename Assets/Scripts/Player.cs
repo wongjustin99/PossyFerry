@@ -4,7 +4,8 @@ using System.Collections;
 public class Player : FSprite {
 
   // last shot time
-  private float last_shot_time;
+  private float _last_shot_time;
+  private float _shotRate = 0.15f;
   private ShotStrategy _shotStrategy;
 
   public Player() : base("fish-frond")
@@ -24,9 +25,10 @@ public class Player : FSprite {
 
   public void shoot()
   {
-    if( Time.time-last_shot_time > 0.15 ){
+    // shotrate limiting based on time
+    if( Time.time - _last_shot_time > _shotRate ){
       _shotStrategy.shoot(this.x, this.y, false);
-      last_shot_time = Time.time;
+      _last_shot_time = Time.time;
     }
   }
 }
