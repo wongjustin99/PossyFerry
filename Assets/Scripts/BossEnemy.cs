@@ -16,13 +16,13 @@ public class BossEnemy : Enemy
     this.scale = 0.5f;
   }
 
-	override protected void initEnemy()
-	{
-		_shotStrategy = new FanShotStrategy();
-		health = 50.0f;
-		points = 5; // the other constructor isn't used, PLEASE FIX THIS LATER
-	}
-	
+  override protected void initEnemy()
+  {
+    _shotStrategy = new FanShotStrategy();
+    health = 50.0f;
+    points = 5; // the other constructor isn't used, PLEASE FIX THIS LATER
+  }
+
   override public void HandleUpdate()
   {
     //movement of boss, slowly moves across screen and up and down

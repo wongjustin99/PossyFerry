@@ -7,7 +7,7 @@ public class WinPage: PageContatiner
   private FButton _backButton;
   private FSprite _background;
   private FLabel _winLabel;
-	private FLabel _showScore;
+  private FLabel _showScore;
   public WinPage ()
   {
     //initialize
@@ -19,21 +19,21 @@ public class WinPage: PageContatiner
 
     //position back button
     _backButton.y = -Futile.screen.halfHeight + 100.0f;
-	_backButton.scale = 1.25f;
-	
-		
-	_winLabel.scale = 2.0f;
+    _backButton.scale = 1.25f;
+
+
+    _winLabel.scale = 2.0f;
     _winLabel.y = Futile.screen.halfHeight - 100.0f;
-	// score 
-	_showScore = new FLabel("Franchise", "Score: 0");
+    // score 
+    _showScore = new FLabel("Franchise", "Score: 0");
     _showScore.color = new Color(1.0f, 0.5f, 0.5f, 1.0f);
-	_showScore.text = "Score: " + Main.instance.score;
-		
+    _showScore.text = "Score: " + Main.instance.score;
+
     //add to the stage
     AddChild(_background);
     AddChild(_backButton);
     AddChild(_winLabel);
-	AddChild(_showScore);
+    AddChild(_showScore);
     _backButton.SignalRelease += HandleBackButtonRelease;
 
   }

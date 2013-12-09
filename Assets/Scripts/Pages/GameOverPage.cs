@@ -14,26 +14,26 @@ public class GameOverPage: PageContatiner
     _background = new FSprite("background_1_blur");
     _backButton = new FButton("YellowButton_normal", "YellowButton_down", "YellowButton_over", "ClickSound");
 
-	//position back button
+    //position back button
     //_backButton.x = -Futile.screen.halfWidth + 70.0f;
     _backButton.y = -Futile.screen.halfHeight + 100.0f;
     _backButton.AddLabel("Franchise", "Play Again", new Color(0.45f,0.25f,0.0f,1.0f));
-	_backButton.scale = 1.25f;
+    _backButton.scale = 1.25f;
 
     _GameOver = new FLabel("Franchise", "Game Over for YOU");
     _GameOver.color = new Color(1.0f,1.0f,1.0f,1.0f);
-	_GameOver.scale = 2.0f;
+    _GameOver.scale = 2.0f;
     _GameOver.y = Futile.screen.halfHeight - 100.0f;
 
-	_showScore = new FLabel("Franchise", "Score: 0");
+    _showScore = new FLabel("Franchise", "Score: 0");
     _showScore.color = new Color(1.0f, 0.5f, 0.5f, 1.0f);
-	_showScore.text = "Score: " + Main.instance.score;
+    _showScore.text = "Score: " + Main.instance.score;
 
     //add to the stage
     AddChild(_background);
     AddChild(_backButton);
     AddChild(_GameOver);
-	AddChild(_showScore);
+    AddChild(_showScore);
     _backButton.SignalRelease += HandleBackButtonRelease;
 
   }

@@ -20,14 +20,14 @@ public class BasicEnemy : Enemy
     // once the sprites are swopped out, this needs to be forgone for
     // sprites with proper resolution in the first place 
   }
-	
-	override protected void initEnemy()
-	{
-		_shotStrategy = new BasicShotStrategy();
-		points = 1;
-		health = 10.0f;
-		scale = 0.5f;
-	}
+
+  override protected void initEnemy()
+  {
+    _shotStrategy = new BasicShotStrategy();
+    points = 1;
+    health = 10.0f;
+    scale = 0.5f;
+  }
 
   override public void HandleUpdate()
   {
