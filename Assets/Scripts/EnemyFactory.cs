@@ -14,15 +14,15 @@ public static class EnemyFactory
 
     if( enemyName.Equals( "enemy1" ) )
     {
-		Enemy _myEnemy = new BasicEnemy();
-		_myEnemy.x = x;
-		_myEnemy.y = y;
+      Enemy _myEnemy = new BasicEnemy();
+      _myEnemy.x = x;
+      _myEnemy.y = y;
       return _myEnemy;
     } else if( enemyName.Equals( "boss1" ) )
     {
       Enemy _myEnemy = new BossEnemy();
-		_myEnemy.x = x;
-		_myEnemy.y = y;
+      _myEnemy.x = x;
+      _myEnemy.y = y;
       return _myEnemy;
     } else
     {

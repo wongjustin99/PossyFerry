@@ -10,17 +10,17 @@ public class TestLevel : Level {
     this._eventQueue.Enqueue( new LevelEvent(7.0f, "enemy1", Futile.screen.halfWidth, -30.0f) );
     this._eventQueue.Enqueue( new LevelEvent(9.0f, "enemy1", Futile.screen.halfWidth, 30.0f) );
     this._eventQueue.Enqueue( new LevelEvent(15.0f, "boss1", Futile.screen.halfWidth, 0.0f) );
-	this._eventQueue.Enqueue( new LevelEvent(25.0f, "enemy1", Futile.screen.halfWidth, -15.0f) );
+    this._eventQueue.Enqueue( new LevelEvent(25.0f, "enemy1", Futile.screen.halfWidth, -15.0f) );
     this._eventQueue.Enqueue( new LevelEvent(35.0f, "enemy1", Futile.screen.halfWidth, 15.0f) );
-	this._eventQueue.Enqueue( new LevelEvent(37.0f, "enemy1", Futile.screen.halfWidth, -90.0f) );
+    this._eventQueue.Enqueue( new LevelEvent(37.0f, "enemy1", Futile.screen.halfWidth, -90.0f) );
     this._eventQueue.Enqueue( new LevelEvent(37.0f, "enemy1", Futile.screen.halfWidth, 90.0f) );
-	this._eventQueue.Enqueue( new LevelEvent(58.0f, "enemy1", Futile.screen.halfWidth, -15.0f) );
+    this._eventQueue.Enqueue( new LevelEvent(58.0f, "enemy1", Futile.screen.halfWidth, -15.0f) );
     this._eventQueue.Enqueue( new LevelEvent(58.0f, "enemy1", Futile.screen.halfWidth, 15.0f) );
-	this._eventQueue.Enqueue( new LevelEvent(65.0f, "enemy1", Futile.screen.halfWidth, -15.0f) );
+    this._eventQueue.Enqueue( new LevelEvent(65.0f, "enemy1", Futile.screen.halfWidth, -15.0f) );
     this._eventQueue.Enqueue( new LevelEvent(65.0f, "enemy1", Futile.screen.halfWidth, 15.0f) );
-	this._eventQueue.Enqueue( new LevelEvent(85.0f, "boss1", Futile.screen.halfWidth, 0.0f) );
-	this._eventQueue.Enqueue( new LevelEvent(85.0f, "enemy1", Futile.screen.halfWidth, 15.0f) );
-	this._eventQueue.Enqueue( new LevelEvent(110.0f, "enemy1", Futile.screen.halfWidth, 15.0f) );
+    this._eventQueue.Enqueue( new LevelEvent(85.0f, "boss1", Futile.screen.halfWidth, 0.0f) );
+    this._eventQueue.Enqueue( new LevelEvent(85.0f, "enemy1", Futile.screen.halfWidth, 15.0f) );
+    this._eventQueue.Enqueue( new LevelEvent(110.0f, "enemy1", Futile.screen.halfWidth, 15.0f) );
 
 
 
