@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System;
 
 public class XboxControlScheme : ControlScheme {
-  private GamePad pad;
-  private float speedX = 0;
-  private float speedY = 0;
+  private float speedX = 500.0f;
+  private float _currentSpeedX = 0.0f;
+  private float speedY = 500.0f;
+  private float _currentSpeedY = 0.0f;
 
   public XboxControlScheme(){
     ListenForUpdate(HandleUpdate);
@@ -15,8 +16,8 @@ public class XboxControlScheme : ControlScheme {
   public void HandleUpdate()
   {
     if( _target != null ){
-      _target.x += speedX;
-      _target.y += speedY;
+      _target.x += _currentSpeedX * Time.deltaTime;
+      _target.y += _currentSpeedY * Time.deltaTime;
       decodeTouch();
     }
   }
@@ -37,8 +38,8 @@ public class XboxControlScheme : ControlScheme {
       HandleShoot();
 
     // convert change axis to movement
-    speedX = 3 * (Input.GetAxis("Horizontal"));
-    speedY = 3 * (Input.GetAxis("Vertical"));
+    _currentSpeedX = speedX * (Input.GetAxis("Horizontal"));
+    _currentSpeedY = speedY * (Input.GetAxis("Vertical"));
 
   }
 }
