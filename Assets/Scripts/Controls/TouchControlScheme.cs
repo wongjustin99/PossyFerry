@@ -5,11 +5,22 @@ using System;
 
 public class TouchControlScheme : ControlScheme
 {
-  private float _speed = 500.0f;
+  private float _speed = 550.0f;
 
-  // moveCharacter variables
+  // `MoveCharacter()` variables
+  private float _xDiff;
+  private float _yDiff;
+  private float _distance;
+  private float xVelocity;
+  private float yVelocity;
+  private float _radius;
+  private float _distancePercentage;
+  private float _slowXVelocity;
+  private float _slowYVelocity;
+  public GameObject gameObject;
 
   public TouchControlScheme(){
+    gameObject = new GameObject();
   }
 
   public void MoveCharacter(FTouch touch)
@@ -18,50 +29,45 @@ public class TouchControlScheme : ControlScheme
     // Thank you!
 
     if( _target != null ) {
-      //_target.x = touch.position.x;
-      //_target.y = touch.position.y;
+      // _target.x = touch.position.x;
+      // _target.y = touch.position.y;
 
-      float _xDiff = touch.position.x - _target.x;
-      float _yDiff = touch.position.y - _target.y;
-      float _distance = (float) Math.Sqrt( _xDiff*_xDiff + _yDiff*_yDiff );
+      _xDiff = touch.position.x - _target.x;
+      _yDiff = touch.position.y - _target.y;
+      _distance = (float) Math.Sqrt( _xDiff*_xDiff + _yDiff*_yDiff );
 
-      float xVelocity = (_xDiff / _distance) * _speed;
-      float yVelocity = (_yDiff / _distance) * _speed;
-      Debug.Log( xVelocity );
+      xVelocity = (_xDiff / _distance) * _speed;
+      yVelocity = (_yDiff / _distance) * _speed;
 
-      float _radius = (float) Math.Sqrt( _target.height*_target.height + _target.width*_target.width );
-      if ( _distance > _radius ) {
-        //add our velocities
+      if( float.IsNaN( xVelocity ) ) {
+        xVelocity = 0;
+      }
+
+      if( float.IsNaN( yVelocity ) ) {
+        yVelocity = 0;
+      }
+
+      _radius = (float) Math.Sqrt( _target.height*_target.height + _target.width*_target.width );
+
+      float radiusRatio = 0.25f;
+
+      if ( _distance > _radius*radiusRatio ) {
+        // add our velocities
         _target.x += xVelocity * Time.deltaTime;
         _target.y += yVelocity * Time.deltaTime;
       } else {
-        float _distancePercentage = _distance/_radius;
+        // interpolated velocities for inside the radius
+        _distancePercentage = _distance/_radius/radiusRatio;
+
+        // tweened velocities
         float _slowXVelocity = Mathf.Lerp( 0, xVelocity, _distancePercentage );
         float _slowYVelocity = Mathf.Lerp( 0, yVelocity, _distancePercentage );
-
-        iTween.ValueTo( gameObject, iTween.Hash(
-              "from", 0,
-              "to", xVelocity,
-              "time", _distancePercentage,
-              "onupdatetarget", gameObject,
-              "onupdate", "tweenOnUpdateCallBack",
-              "easetype", iTween.EaseType.easeOutQuad
-              )
-            );
 
         _target.x += _slowXVelocity * Time.deltaTime;
         _target.y += _slowYVelocity * Time.deltaTime;
       }
     }
   }
-
-  void tweenOnUpdateCallBack( int newValue )
-  {
-    exampleInt = newValue;
-    Debug.Log( exampleInt );
-  }
-
-
 
   override public void acceptTouchOne(FTouch touch)
   {

@@ -98,10 +98,6 @@ public class GamePage : PageContatiner, FMultiTouchableInterface
     // add score label
     AddChild(_scoreLabel);
 
-    //_control = new TouchControlScheme();
-    _control = new PadControlScheme();
-    _control.setTarget(_player);
-
     // add control from the main class
     _control = Main.instance.getControlScheme();
     _control.setTarget ( _player );

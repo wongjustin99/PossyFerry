@@ -71,11 +71,11 @@ public class OptionPage: PageContatiner
 
   private void HandleTouchControlsRelease(FButton Btouch)
   {
-    Main.instance.getControlScheme( ControlType.Touch );
+    Main.instance.setControlScheme( ControlType.Touch );
   }
   private void HandlePadControlsRelease(FButton Bpad)
   {
-    Main.instance.getControlScheme( ControlType.Pad );
+    Main.instance.setControlScheme( ControlType.Pad );
   }
 }
 

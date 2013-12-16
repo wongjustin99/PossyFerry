@@ -62,16 +62,19 @@ public class Main : MonoBehaviour
 #endif
   }
 
-  public ControlScheme getControlScheme( ControlType controlType )
+  public ControlScheme setControlScheme( ControlType controlType )
   {
     if( controlType == ControlType.Pad )
     {
+      _currentControlType = ControlType.Pad;
       return new PadControlScheme();
     } else if( controlType == ControlType.Touch )
     {
+      _currentControlType = ControlType.Touch;
       return new TouchControlScheme();
     } else if( controlType == ControlType.Xbox)
     {
+      _currentControlType = ControlType.Xbox;
       return new XboxControlScheme();
     } else {
       Debug.Log( "No valid ControlScheme type!" );
@@ -81,7 +84,7 @@ public class Main : MonoBehaviour
 
   public ControlScheme getControlScheme()
   {
-    return getControlScheme( _currentControlType );
+    return setControlScheme( _currentControlType );
   }
 
   public void GoToPage(PageType pageType)
