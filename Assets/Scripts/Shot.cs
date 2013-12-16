@@ -10,7 +10,7 @@ public class Shot :  FSprite
   private float speedY = 0.0f;
   private float damage;
 
-  public Shot(float x, float y, bool isEnemy, float dmg) : base("bullet_gray")
+  public Shot(float x, float y, bool isEnemy, float dmg, string sprite) : base(sprite)
   {
     this.x = x;
     this.y = y;
@@ -23,7 +23,7 @@ public class Shot :  FSprite
   }
 
   // overloaded constructor, for angled shots
-  public Shot(float x, float y, bool isEnemy, float dmg, float angle) : this(x, y, isEnemy, dmg)
+  public Shot(float x, float y, bool isEnemy, float dmg, float angle, string sprite) : this(x, y, isEnemy, dmg, sprite)
   {
     this.speedX = Mathf.Cos(angle) * speedX;
     this.speedY = Mathf.Sin(angle) * speedX;
