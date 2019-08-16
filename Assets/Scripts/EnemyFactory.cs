@@ -18,6 +18,12 @@ public static class EnemyFactory
       _myEnemy.x = x;
       _myEnemy.y = y;
       return _myEnemy;
+    } else if( enemyName.Equals( "enemy2" ) )
+    {
+      Enemy _myEnemy = new TriangleEnemy();
+      _myEnemy.x = x;
+      _myEnemy.y = y;
+      return _myEnemy;
     } else if( enemyName.Equals( "boss1" ) )
     {
       Enemy _myEnemy = new BossEnemy();
